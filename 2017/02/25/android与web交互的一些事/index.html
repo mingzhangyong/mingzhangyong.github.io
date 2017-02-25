@@ -9,21 +9,18 @@
   <title>android与web交互的一些事 | 明章永的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="网页与Android原生页交互越来越多，遇到的问题也越来越多。
-问题描述1：用户在app端登录成功，然后在app端打开一个需要登录信息（用来识别用户）的web页。
-解决方案：app端发送js消息给web端，将用户登录的token值传递给web页。web页在调用需要登录信息的接口时设置请求头信息。关于Android如何传递参数给web请参照上一篇h5与Android原生交互这里Android端将to">
+问题描述1：用户在app端登录成功，然后在app端打开一个需要登录信息（用来识别用户）的web页。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="android与web交互的一些事">
 <meta property="og:url" content="http://yoursite.com/2017/02/25/android与web交互的一些事/index.html">
 <meta property="og:site_name" content="明章永的博客">
 <meta property="og:description" content="网页与Android原生页交互越来越多，遇到的问题也越来越多。
-问题描述1：用户在app端登录成功，然后在app端打开一个需要登录信息（用来识别用户）的web页。
-解决方案：app端发送js消息给web端，将用户登录的token值传递给web页。web页在调用需要登录信息的接口时设置请求头信息。关于Android如何传递参数给web请参照上一篇h5与Android原生交互这里Android端将to">
-<meta property="og:updated_time" content="2017-02-25T01:34:41.000Z">
+问题描述1：用户在app端登录成功，然后在app端打开一个需要登录信息（用来识别用户）的web页。">
+<meta property="og:updated_time" content="2017-02-25T03:52:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="android与web交互的一些事">
 <meta name="twitter:description" content="网页与Android原生页交互越来越多，遇到的问题也越来越多。
-问题描述1：用户在app端登录成功，然后在app端打开一个需要登录信息（用来识别用户）的web页。
-解决方案：app端发送js消息给web端，将用户登录的token值传递给web页。web页在调用需要登录信息的接口时设置请求头信息。关于Android如何传递参数给web请参照上一篇h5与Android原生交互这里Android端将to">
+问题描述1：用户在app端登录成功，然后在app端打开一个需要登录信息（用来识别用户）的web页。">
   
     <link rel="alternative" href="/atom.xml" title="明章永的博客" type="application/atom+xml">
   
@@ -58,7 +55,7 @@
 		  <h1 class="header-author"><a href="/">明章永</a></h1>
 		</hgroup>
 		
-		<p class="header-subtitle">充满鲜花的世界到底在哪里 如果他真的存在 那么我一定会去</p>
+		<p class="header-subtitle">充满鲜花的世界到底在哪里,如果他真的存在,那么我一定会去</p>
 		
 
 		<nav class="header-menu">
@@ -118,7 +115,7 @@
 			  <h1 class="header-author js-header-author">明章永</h1>
 			</hgroup>
 			
-			<p class="header-subtitle"><i class="icon icon-quo-left"></i>充满鲜花的世界到底在哪里 如果他真的存在 那么我一定会去<i class="icon icon-quo-right"></i></p>
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>充满鲜花的世界到底在哪里,如果他真的存在,那么我一定会去<i class="icon icon-quo-right"></i></p>
 			
 			
 			
@@ -184,10 +181,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>网页与Android原生页交互越来越多，遇到的问题也越来越多。</p>
-<p><strong><em>问题描述1</em></strong>：用户在app端登录成功，然后在app端打开一个需要登录信息（用来识别用户）的web页。</p>
-<p><strong><em>解决方案</em></strong>：app端发送js消息给web端，将用户登录的token值传递给web页。web页在调用需要登录信息的接口时设置请求头信息。关于Android如何传递参数给web请参照上一篇<a href="http://blog.csdn.net/pigwithbadguy/article/details/53586813" title="js交互" target="_blank" rel="external">h5与Android原生交互</a>这里Android端将token值发送到web页，web页处理如下：</p>
+<p><strong><em>问题描述1</em></strong>：用户在app端登录成功，然后在app端打开一个需要登录信息（用来识别用户）的web页。<br> <a id="more"></a><br><strong><em>解决方案</em></strong>：app端发送js消息给web端，将用户登录的token值传递给web页。web页在调用需要登录信息的接口时设置请求头信息。关于Android如何传递参数给web请参照上一篇<a href="http://blog.csdn.net/pigwithbadguy/article/details/53586813" title="js交互" target="_blank" rel="external">h5与Android原生交互</a>这里Android端将token值发送到web页，web页处理如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">    function connectWebViewJavascriptBridge(callback) &#123;</div><div class="line">        if (window.WebViewJavascriptBridge) &#123;</div><div class="line">            callback(WebViewJavascriptBridge)</div><div class="line">        &#125;else&#123; document.addEventListener(&apos;WebViewJavascriptBridgeReady&apos;, function () &#123;</div><div class="line">                callback(WebViewJavascriptBridge)</div><div class="line">            &#125;, false)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    connectWebViewJavascriptBridge(function (bridge) &#123;</div><div class="line">        bridge.init(function (message, responseCallback) &#123;</div><div class="line">            alert(&quot;message&quot;+message)</div><div class="line">            document.cookie=&quot;token=&quot;+message;</div><div class="line">            // alert(&apos;token\ \ &apos;+message);</div><div class="line">            $.ajax(&#123;</div><div class="line">                url:&apos;/xxxx/xxxxx/xxxxx/&apos;,</div><div class="line">                type:&apos;GET&apos;,</div><div class="line">                beforeSend:function(xhr)&#123;</div><div class="line">                     alert(&quot;beforeSend  &quot;+message)</div><div class="line">                   xhr.setRequestHeader(&apos;Authorization&apos;,&apos;token\ \ &apos;+message)</div><div class="line">                &#125;,</div><div class="line">                success:function(resp)&#123;</div><div class="line">                    alert(&quot;success &quot;+message)</div><div class="line">                    dealResp(resp,message)</div><div class="line">                &#125;,</div><div class="line">                error:function(err)&#123;</div><div class="line">                    // alert(&quot;err&quot;)</div><div class="line">                    console.log(err)</div><div class="line">                &#125;</div><div class="line">            &#125;)</div><div class="line">            var data = &#123;&apos;Javascript Responds&apos;: &apos;Wee!&apos;&#125;</div><div class="line">            new Vue(&#123;</div><div class="line">                el: &quot;#vue-app&quot;,</div><div class="line">                template: &quot;#app-template&quot;,</div><div class="line">                data:&#123;</div><div class="line">                    tab: 1,</div><div class="line">                &#125;,</div><div class="line"></div><div class="line">                events: &#123;</div><div class="line">                    &apos;bridgeEvt&apos;: function(obj) &#123;</div><div class="line">                        bridge.send(JSON.stringify(obj),function(responseData)&#123;</div><div class="line">                            console.log(responseData);</div><div class="line">                        &#125;)</div><div class="line">                    &#125;</div><div class="line">                &#125;,</div><div class="line">                ready: function()&#123;</div><div class="line">                    if(/notice_type=2/.test(location.href)) &#123;</div><div class="line">                        this.tab = 2</div><div class="line">                    &#125;</div><div class="line">                &#125;,</div><div class="line"></div><div class="line">            &#125;);</div><div class="line">            responseCallback(data)</div><div class="line">        &#125;)</div><div class="line">        </div><div class="line">    &#125;)</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<p>这里主要看一下对message的处理，首先吧token值存到cookie里面，这样其他的页面都可以通过cookie来获取到登录token了。然后ajax get请求的时候设置请求头信息xhr.setRequestHeader(‘Authorization’,’token\ \ ‘+message)这个键值对是需要后台来识别登录信息的。</p>
+<p>这里主要看一下对message的处理，&lt; !–more– &gt;首先吧token值存到cookie里面，这样其他的页面都可以通过cookie来获取到登录token了。然后ajax get请求的时候设置请求头信息xhr.setRequestHeader(‘Authorization’,’token\ \ ‘+message)这个键值对是需要后台来识别登录信息的。</p>
 <p><strong><em>问题描述2</em></strong>：app端打开的web页又跳转了好几个web页，点击返回键所有的页面都被关闭了，直接返回到了原生页面。（老版本的微信的公众号推出的文章就有这个问题，现在已经修复了）</p>
 <p><strong><em>解决方案</em></strong>：<br>1.Android端<br>重写当前web所在的activity的onBackPressed()方法</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">    public void onBackPressed() &#123;</div><div class="line">        if(null != mWebView &amp;&amp; mWebView.canGoBack())&#123;</div><div class="line">            mWebView.goBack();</div><div class="line">        &#125;else&#123;</div><div class="line">            super.onBackPressed();</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>

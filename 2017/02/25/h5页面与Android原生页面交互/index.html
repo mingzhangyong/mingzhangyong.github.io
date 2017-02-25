@@ -9,27 +9,18 @@
   <title>h5页面与Android原生页面交互 | 明章永的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Android页面内嵌套h5页面已经是随处可见了。在Android原生页面和h5页面的取舍上那些不是本文的重点。重点是，如此多的页面用网页来写，那么必定涉及到网页与原生的交互，俗称js交互。
-目标：h5页面点击按钮Android端接收到网页传给的json数据。
-实现
-  网页端     网页端添加如下内容
-1234567891011121314151617181920212223242526272">
+目标：h5页面点击按钮Android端接收到网页传给的json数据。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="h5页面与Android原生页面交互">
 <meta property="og:url" content="http://yoursite.com/2017/02/25/h5页面与Android原生页面交互/index.html">
 <meta property="og:site_name" content="明章永的博客">
 <meta property="og:description" content="Android页面内嵌套h5页面已经是随处可见了。在Android原生页面和h5页面的取舍上那些不是本文的重点。重点是，如此多的页面用网页来写，那么必定涉及到网页与原生的交互，俗称js交互。
-目标：h5页面点击按钮Android端接收到网页传给的json数据。
-实现
-  网页端     网页端添加如下内容
-1234567891011121314151617181920212223242526272">
-<meta property="og:updated_time" content="2017-02-25T01:10:52.206Z">
+目标：h5页面点击按钮Android端接收到网页传给的json数据。">
+<meta property="og:updated_time" content="2017-02-25T03:52:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="h5页面与Android原生页面交互">
 <meta name="twitter:description" content="Android页面内嵌套h5页面已经是随处可见了。在Android原生页面和h5页面的取舍上那些不是本文的重点。重点是，如此多的页面用网页来写，那么必定涉及到网页与原生的交互，俗称js交互。
-目标：h5页面点击按钮Android端接收到网页传给的json数据。
-实现
-  网页端     网页端添加如下内容
-1234567891011121314151617181920212223242526272">
+目标：h5页面点击按钮Android端接收到网页传给的json数据。">
   
     <link rel="alternative" href="/atom.xml" title="明章永的博客" type="application/atom+xml">
   
@@ -64,7 +55,7 @@
 		  <h1 class="header-author"><a href="/">明章永</a></h1>
 		</hgroup>
 		
-		<p class="header-subtitle">充满鲜花的世界到底在哪里 如果他真的存在 那么我一定会去</p>
+		<p class="header-subtitle">充满鲜花的世界到底在哪里,如果他真的存在,那么我一定会去</p>
 		
 
 		<nav class="header-menu">
@@ -124,7 +115,7 @@
 			  <h1 class="header-author js-header-author">明章永</h1>
 			</hgroup>
 			
-			<p class="header-subtitle"><i class="icon icon-quo-left"></i>充满鲜花的世界到底在哪里 如果他真的存在 那么我一定会去<i class="icon icon-quo-right"></i></p>
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>充满鲜花的世界到底在哪里,如果他真的存在,那么我一定会去<i class="icon icon-quo-right"></i></p>
 			
 			
 			
@@ -190,8 +181,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>Android页面内嵌套h5页面已经是随处可见了。在Android原生页面和h5页面的取舍上那些不是本文的重点。重点是，如此多的页面用网页来写，那么必定涉及到网页与原生的交互，俗称js交互。</p>
-<p><strong><em>目标</em></strong>：h5页面点击按钮Android端接收到网页传给的json数据。</p>
-<p><strong><em>实现</em></strong></p>
+<p><strong><em>目标</em></strong>：h5页面点击按钮Android端接收到网页传给的json数据。<br><a id="more"></a><br><strong><em>实现</em></strong></p>
 <p>  <strong><em>网页端</em></strong><br>     网页端添加如下内容</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line"></div><div class="line"> var hasBridge = false</div><div class="line"></div><div class="line"></div><div class="line">    function connectWebViewJavascriptBridge(callback) &#123;</div><div class="line">            if (window.WebViewJavascriptBridge) &#123;</div><div class="line">                callback(WebViewJavascriptBridge)</div><div class="line">            &#125; else &#123;</div><div class="line">                document.addEventListener(&apos;WebViewJavascriptBridgeReady&apos;, function () &#123;</div><div class="line">                    callback(WebViewJavascriptBridge)</div><div class="line">                &#125;, false)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        connectWebViewJavascriptBridge(function (bridge) &#123;</div><div class="line">            bridge.init(function (message, responseCallback) &#123;</div><div class="line">                hasBridge = true</div><div class="line">                var data = &#123;&apos;Javascript Responds&apos;: &apos;Wee!&apos;&#125;</div><div class="line">                $(&quot;#document .disabled&quot;).removeClass(&quot;disabled&quot;)</div><div class="line">                responseCallback(data)</div><div class="line"></div><div class="line">            &#125;)</div><div class="line"></div><div class="line">            $(&quot;#mzy&quot;).click(function()&#123;</div><div class="line">                var sendObj = &#123;&quot;type&quot;:&quot;user&quot;&#125;；</div><div class="line">                sendObj[&quot;phone&quot;] = &quot;18067976937&quot;;</div><div class="line">                sendObj[&quot;nick&quot;] = &quot;maoamao&quot;;</div><div class="line">                bridge.send(JSON.stringify(sendObj), function (responseData) &#123;</div><div class="line">                &#125;);</div><div class="line">            &#125;)</div><div class="line">        &#125;)</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
 <p>其中 mzy 是定义的一个id = “mzy”的按钮。传递的json数据为</p>
