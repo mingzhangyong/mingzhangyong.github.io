@@ -3,14 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hexo</title>
+  <title>android与web交互的一些事 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="网页与Android原生页交互越来越多，遇到的问题也越来越多。
+问题描述1：用户在app端登录成功，然后在app端打开一个需要登录信息（用来识别用户）的web页。
+解决方案：app端发送js消息给web端，将用户登录的token值传递给web页。web页在调用需要登录信息的接口时设置请求头信息。关于Android如何传递参数给web请参照上一篇h5与Android原生交互这里Android端将to">
+<meta property="og:type" content="article">
+<meta property="og:title" content="android与web交互的一些事">
+<meta property="og:url" content="http://yoursite.com/2017/02/25/android与web交互的一些事/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="网页与Android原生页交互越来越多，遇到的问题也越来越多。
+问题描述1：用户在app端登录成功，然后在app端打开一个需要登录信息（用来识别用户）的web页。
+解决方案：app端发送js消息给web端，将用户登录的token值传递给web页。web页在调用需要登录信息的接口时设置请求头信息。关于Android如何传递参数给web请参照上一篇h5与Android原生交互这里Android端将to">
+<meta property="og:updated_time" content="2017-02-25T01:15:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="android与web交互的一些事">
+<meta name="twitter:description" content="网页与Android原生页交互越来越多，遇到的问题也越来越多。
+问题描述1：用户在app端登录成功，然后在app端打开一个需要登录信息（用来识别用户）的web页。
+解决方案：app端发送js消息给web端，将用户登录的token值传递给web页。web页在调用需要登录信息的接口时设置请求头信息。关于Android如何传递参数给web请参照上一篇h5与Android原生交互这里Android端将to">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -59,9 +69,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-android与web交互的一些事" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-android与web交互的一些事" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/02/25/android与web交互的一些事/" class="article-date">
   <time datetime="2017-02-25T01:14:11.000Z" itemprop="datePublished">2017-02-25</time>
@@ -74,8 +82,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/25/android与web交互的一些事/">android与web交互的一些事</a>
+    <h1 class="article-title" itemprop="name">
+      android与web交互的一些事
     </h1>
   
 
@@ -113,142 +121,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-h5页面与Android原生页面交互" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/02/25/h5页面与Android原生页面交互/" class="article-date">
-  <time datetime="2017-02-25T01:10:21.000Z" itemprop="datePublished">2017-02-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/25/h5页面与Android原生页面交互/">h5页面与Android原生页面交互</a>
-    </h1>
+    <a href="/2017/02/25/h5页面与Android原生页面交互/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">h5页面与Android原生页面交互</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Android页面内嵌套h5页面已经是随处可见了。在Android原生页面和h5页面的取舍上那些不是本文的重点。重点是，如此多的页面用网页来写，那么必定涉及到网页与原生的交互，俗称js交互。</p>
-<p><strong><em>目标</em></strong>：h5页面点击按钮Android端接收到网页传给的json数据。</p>
-<p><strong><em>实现</em></strong></p>
-<p>  <strong><em>网页端</em></strong><br>     网页端添加如下内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line"></div><div class="line"> var hasBridge = false</div><div class="line"></div><div class="line"></div><div class="line">    function connectWebViewJavascriptBridge(callback) &#123;</div><div class="line">            if (window.WebViewJavascriptBridge) &#123;</div><div class="line">                callback(WebViewJavascriptBridge)</div><div class="line">            &#125; else &#123;</div><div class="line">                document.addEventListener(&apos;WebViewJavascriptBridgeReady&apos;, function () &#123;</div><div class="line">                    callback(WebViewJavascriptBridge)</div><div class="line">                &#125;, false)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        connectWebViewJavascriptBridge(function (bridge) &#123;</div><div class="line">            bridge.init(function (message, responseCallback) &#123;</div><div class="line">                hasBridge = true</div><div class="line">                var data = &#123;&apos;Javascript Responds&apos;: &apos;Wee!&apos;&#125;</div><div class="line">                $(&quot;#document .disabled&quot;).removeClass(&quot;disabled&quot;)</div><div class="line">                responseCallback(data)</div><div class="line"></div><div class="line">            &#125;)</div><div class="line"></div><div class="line">            $(&quot;#mzy&quot;).click(function()&#123;</div><div class="line">                var sendObj = &#123;&quot;type&quot;:&quot;user&quot;&#125;；</div><div class="line">                sendObj[&quot;phone&quot;] = &quot;18067976937&quot;;</div><div class="line">                sendObj[&quot;nick&quot;] = &quot;maoamao&quot;;</div><div class="line">                bridge.send(JSON.stringify(sendObj), function (responseData) &#123;</div><div class="line">                &#125;);</div><div class="line">            &#125;)</div><div class="line">        &#125;)</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<p>其中 mzy 是定义的一个id = “mzy”的按钮。传递的json数据为</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	&quot;type&quot;:&quot;user&quot;,</div><div class="line">	&quot;phone&quot;:&quot;18067976937&quot;,</div><div class="line">	&quot;nick&quot;:&quot;maoamao&quot;,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong><em>Android端</em></strong><br>    Android端这里使用的github上开元项目BridgeWebView来显示h5页面。使用如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">webview.setWebViewClient(new BridgeWebViewClient(webview) &#123;</div><div class="line"></div><div class="line">           @Override</div><div class="line">           public void onPageStarted(WebView view, String url, Bitmap favicon) &#123;</div><div class="line">               super.onPageStarted(view, url, favicon);</div><div class="line">           &#125;</div><div class="line"></div><div class="line">           @Override</div><div class="line">           public void onPageFinished(WebView view, String url) &#123;</div><div class="line">               super.onPageFinished(view, url);</div><div class="line">           &#125;</div><div class="line"></div><div class="line">           @Override</div><div class="line">           public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) &#123;</div><div class="line">               super.onReceivedError(view, errorCode, description, failingUrl);</div><div class="line">               view.loadData(errorHtml, &quot;text/html; charset=UTF-8&quot;, null);</div><div class="line"></div><div class="line">           &#125;</div><div class="line">       &#125;);</div><div class="line">       //JS交互</div><div class="line">       webview.setDefaultHandler(new DefaultHandler() &#123;</div><div class="line">           @Override</div><div class="line">           public void handler(String data, CallBackFunction function) &#123;</div><div class="line">               super.handler(data, function);</div><div class="line">               Log.e(&quot;data&quot;, &quot;data = &quot; + data);</div><div class="line">               try &#123;</div><div class="line">                   Gson gson = new GsonBuilder()</div><div class="line">                           .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)</div><div class="line">                           .setDateFormat(&quot;yyyy-MM-dd&apos;T&apos;HH:mm:ss&quot;).create();</div><div class="line">                   JSONObject jsonObject = new JSONObject(data);</div><div class="line">                   String type = jsonObject.getString(&quot;type&quot;);</div><div class="line">                   if (null != type &amp;&amp; type.equals(&quot;user&quot;)) &#123;</div><div class="line">                       String nick = jsonObject.getString(&quot;nick&quot;);</div><div class="line">                       Log.i(&quot;nick&quot;,&quot;nick = &quot;+nick);</div><div class="line">                   &#125; else if (null != type &amp;&amp; type.equals(&quot;XXXXXX&quot;)) &#123;</div><div class="line">                       xxxxxxxx;</div><div class="line">                   &#125;</div><div class="line"></div><div class="line">               &#125; catch (JSONException e) &#123;</div><div class="line">                   e.printStackTrace();</div><div class="line">               &#125;</div><div class="line">           &#125;</div><div class="line">       &#125;);</div><div class="line">       </div><div class="line">       webview.loadUrl(&quot;XXXXXXXXXX&quot;);</div><div class="line">       </div><div class="line">       webview.send(&quot;hello-javascript&quot;);</div></pre></td></tr></table></figure>
-<p>这里根据因为同一个页面可能会有多种不同的交互需求，所以这里用type来区分不同的交互类型。这里可以根据jsonObject.getString(“nick”)获取到nick字段。 webview.loadUrl(“XXXXXXXXXX”);设置成你自己的h5页面地址即可。</p>
-<p><strong><em>目标二：Android端传递参数给web页</em></strong></p>
-<p>上面代码块里面最后一句<strong><em>webview.send(“hello-javascript”);</em></strong>就是Android端发送了一个”hello-javascript”字符串给web页。</p>
-<p><strong><em>web页接收Android发来的参数</em></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">    function connectWebViewJavascriptBridge(callback) &#123;</div><div class="line">        if (window.WebViewJavascriptBridge) &#123;</div><div class="line">            callback(WebViewJavascriptBridge)</div><div class="line">        &#125; else &#123;      </div><div class="line">        document.addEventListener(&apos;WebViewJavascriptBridgeReady&apos;, function()&#123;</div><div class="line">                callback(WebViewJavascriptBridge)</div><div class="line">            &#125;, false)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    connectWebViewJavascriptBridge(function (bridge) &#123;</div><div class="line">        bridge.init(function (message, responseCallback) &#123;</div><div class="line">            alert(&quot;message&quot;+message)</div><div class="line">            var data = &#123;&apos;Javascript Responds&apos;: &apos;Wee!&apos;&#125;</div><div class="line">            new Vue(&#123;</div><div class="line">                el: &quot;#vue-app&quot;,</div><div class="line">                template: &quot;#app-template&quot;,</div><div class="line">                data:&#123;</div><div class="line">                    tab: 1,</div><div class="line">                &#125;,</div><div class="line"></div><div class="line">                events: &#123;</div><div class="line">                    &apos;bridgeEvt&apos;: function(obj) &#123;</div><div class="line">                        bridge.send(JSON.stringify(obj),function(responseData)&#123;</div><div class="line">                            console.log(responseData);</div><div class="line">                        &#125;)</div><div class="line">                    &#125;</div><div class="line">                &#125;,</div><div class="line">                ready: function()&#123;</div><div class="line">                    if(/notice_type=2/.test(location.href)) &#123;</div><div class="line">                        this.tab = 2</div><div class="line">                    &#125;</div><div class="line">                &#125;,</div><div class="line"></div><div class="line">            &#125;);</div><div class="line">            responseCallback(data)</div><div class="line">        &#125;)</div><div class="line">        </div><div class="line">    &#125;)</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<p>其中alert(“message”+message)message就是从Android传过来的参数。我们可以进行处理。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/25/h5页面与Android原生页面交互/" data-id="cizkk2mr000029ravna49uvet" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-frist-test" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/02/24/frist-test/" class="article-date">
-  <time datetime="2017-02-24T13:54:20.000Z" itemprop="datePublished">2017-02-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/24/frist-test/">frist test</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="my-frist-test"><a href="#my-frist-test" class="headerlink" title="my frist test"></a>my frist test</h3>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/24/frist-test/" data-id="cizkk2mqx00019ravef1kj4nn" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/02/24/hello-world/" class="article-date">
-  <time datetime="2017-02-24T13:19:48.122Z" itemprop="datePublished">2017-02-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/24/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/24/hello-world/" data-id="cizkk2mr400039ravauxms113" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 </section>
         
