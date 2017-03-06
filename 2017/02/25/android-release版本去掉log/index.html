@@ -6,18 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>frist test | 明章永的博客</title>
+  <title>android release版本去掉log | 明章永的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="my frist test">
+  <meta name="description" content="android开发中总会在代码中添加log，打印当前运行情况。log打印是调试时不可或缺的工具。
+但是不可否认的是当log打印语句中出现空指针的时候程序会crash。又或是在循环里面打印了log信息，会消耗很多系统资源。
+目标：我们希望在打包debug包的时候保留log信息，在release包时去掉log消息。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="frist test">
-<meta property="og:url" content="http://yoursite.com/2017/02/24/frist-test/index.html">
+<meta property="og:title" content="android release版本去掉log">
+<meta property="og:url" content="http://yoursite.com/2017/02/25/android-release版本去掉log/index.html">
 <meta property="og:site_name" content="明章永的博客">
-<meta property="og:description" content="my frist test">
-<meta property="og:updated_time" content="2017-02-24T13:57:14.704Z">
+<meta property="og:description" content="android开发中总会在代码中添加log，打印当前运行情况。log打印是调试时不可或缺的工具。
+但是不可否认的是当log打印语句中出现空指针的时候程序会crash。又或是在循环里面打印了log信息，会消耗很多系统资源。
+目标：我们希望在打包debug包的时候保留log信息，在release包时去掉log消息。">
+<meta property="og:image" content="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/buildConfig.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/decompilationDebug.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/decompilationDebugDetail.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/decompilationRelease.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/decompilationReleaseDetail.png">
+<meta property="og:updated_time" content="2017-02-25T05:59:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="frist test">
-<meta name="twitter:description" content="my frist test">
+<meta name="twitter:title" content="android release版本去掉log">
+<meta name="twitter:description" content="android开发中总会在代码中添加log，打印当前运行情况。log打印是调试时不可或缺的工具。
+但是不可否认的是当log打印语句中出现空指针的时候程序会crash。又或是在循环里面打印了log信息，会消耗很多系统资源。
+目标：我们希望在打包debug包的时候保留log信息，在release包时去掉log消息。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/buildConfig.png">
   
     <link rel="alternative" href="/atom.xml" title="明章永的博客" type="application/atom+xml">
   
@@ -86,7 +98,7 @@
 		        
 					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
 		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+					<a class="rss" target="_blank" href="#sdada" title="rss"><i class="icon-rss"></i></a>
 		        
 					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
@@ -129,7 +141,7 @@
 			        
 						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
 			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+						<a class="rss" target="_blank" href="#sdada" title="rss"><i class="icon-rss"></i></a>
 			        
 						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
@@ -157,27 +169,47 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-frist-test" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-android-release版本去掉log" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      frist test
+      android release版本去掉log
     </h1>
   
 
         
-        <a href="/2017/02/24/frist-test/" class="archive-article-date">
-  	<time datetime="2017-02-24T13:54:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-24</time>
+        <a href="/2017/02/25/android-release版本去掉log/" class="archive-article-date">
+  	<time datetime="2017-02-25T05:58:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-25</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="my-frist-test"><a href="#my-frist-test" class="headerlink" title="my frist test"></a>my frist test</h3>
+        <p>android开发中总会在代码中添加log，打印当前运行情况。log打印是调试时不可或缺的工具。</p>
+<p>但是不可否认的是当log打印语句中出现空指针的时候程序会crash。又或是在循环里面打印了log信息，会消耗很多系统资源。</p>
+<p><strong>目标：</strong>我们希望在打包debug包的时候保留log信息，在release包时去掉log消息。<br><a id="more"></a></p>
+<p><strong>方法：</strong>在使用AS创建android项目以后在目录app\build\generated\source\buildConfig\debug\com…..上会创建一个BuildConfig.java文件，里面有一个静态常量叫做 DEBUG。利用这个常量来实现打带签名的release包时去掉log消息的目的。</p>
+<p><img src="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/buildConfig.png" alt="这里写图片描述"></p>
+<p><strong>在使用log时，用以下方式使用</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if(BuildConfig.DEBUG)&#123;</div><div class="line">          Log.i(&quot;xxx&quot;,&quot;xxxxx&quot;);</div><div class="line">      &#125;</div></pre></td></tr></table></figure>
+<p>实验证明方法的实用性：</p>
+<pre><code>试验方法：两条log打印，一条带BuildConfig.DEBUG判断，一条不带。
+        打debug包，反编译apk文件看看文件中是否有log语句。
+        打release包，反编译apk文件看看文件中是否有log语句。
+</code></pre><p>内容不多mainActivity，两条log信息，相互对比以下。代码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public class MainActivity extends AppCompatActivity &#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        if(BuildConfig.DEBUG)&#123;</div><div class="line">            Log.i(&quot;mzy&quot;,&quot;is show debug?&quot;);</div><div class="line"></div><div class="line">        &#125;</div><div class="line">        Log.d(&quot;mzy&quot;,&quot;show me&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>1.打包debug版本的apk文件,然后进行反编译<br><img src="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/decompilationDebug.png" alt="这里写图片描述"></p>
+<p>反编译的mainActivity内容如下：<br><img src="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/decompilationDebugDetail.png" alt="这里写图片描述"><br>可以看到，在debug版本中反编译apk得到的文件中两次log打印都还在。也就是在debug版本中，加上BuildConfig.DEBUG判断是没有影响的。</p>
+<p>2.打包带签名的release版本，再反编译<br><img src="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/decompilationRelease.png" alt="这里写图片描述"></p>
+<p>反编译的mainActivity内容如下：<br><img src="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/decompilationReleaseDetail.png" alt="这里写图片描述"></p>
+<p>可以看到，在这次的反编译文件中只显示了一次log打印，显示的是没有添加BuidConfig.DEBUG的那一句。</p>
+<p><strong>结论：在添加了BuildConfig.DEBUG判断后的log信息是不会被编译到apk文件中的。</strong></p>
+<p>说明：该方法是在一个android技术群里学习到的。非原创。我只是方法的实现者。</p>
+
       
 
       
@@ -256,7 +288,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/02/24/frist-test/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/02/25/android-release版本去掉log/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -270,18 +302,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/02/25/h5页面与Android原生页面交互/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/02/25/微信小程序radio不能改变大小，自己重写一个吧/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          h5页面与Android原生页面交互
+          微信小程序radio不能改变大小，自己重写一个吧
         
       </div>
     </a>
   
   
-    <a href="/2017/02/24/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hello World</div>
+    <a href="/2017/02/25/android与web交互的一些事/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">android与web交互的一些事</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -464,7 +496,7 @@
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">向前跑&lt;br&gt;&lt;br&gt;迎着冷眼和嘲笑</div>
   	  	
     	</section>
     
