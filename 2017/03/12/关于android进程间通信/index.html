@@ -14,7 +14,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/03/12/关于android进程间通信/index.html">
 <meta property="og:site_name" content="明章永的博客">
 <meta property="og:description" content="android开发中难免会遇到要求开发多进程的应用程序。在使用中总是缺少总结，以至于在遇到问题时只能依赖于google之类的。最近看了任玉刚老师的《Android开发艺术探索》这本书，第二章就讲到了多进程的通信方式，比较全面。那么我也对学过的东西总结一下吧。">
-<meta property="og:updated_time" content="2017-03-12T13:04:18.000Z">
+<meta property="og:updated_time" content="2017-03-12T13:09:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于android进程间通信">
 <meta name="twitter:description" content="android开发中难免会遇到要求开发多进程的应用程序。在使用中总是缺少总结，以至于在遇到问题时只能依赖于google之类的。最近看了任玉刚老师的《Android开发艺术探索》这本书，第二章就讲到了多进程的通信方式，比较全面。那么我也对学过的东西总结一下吧。">
@@ -178,7 +178,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>android开发中难免会遇到要求开发多进程的应用程序。在使用中总是缺少总结，以至于在遇到问题时只能依赖于google之类的。最近看了任玉刚老师的《Android开发艺术探索》这本书，第二章就讲到了多进程的通信方式，比较全面。那么我也对学过的东西总结一下吧。<br><a id="more"></a></p>
-<p>####1.使用Bundle<br>android 在启动activity ，service，receiver时可以用Bundle实现进程间的通信，同过Intent为载体。这是进程间通信最简单的一种方式了。</p>
+<h4 id="1-使用Bundle"><a href="#1-使用Bundle" class="headerlink" title="1.使用Bundle"></a>1.使用Bundle</h4><p>android 在启动activity ，service，receiver时可以用Bundle实现进程间的通信，同过Intent为载体。这是进程间通信最简单的一种方式了。</p>
 <pre><code>Intent intent = new Intent(this,BookManagerService.class);
 Bundle bundle = new Bundle();
 bundle.putString(&quot;bundle&quot;,&quot;hello ipc&quot;);
@@ -207,13 +207,13 @@ bindService(intent,mConnection,BIND_AUTO_CREATE);
 <pre><code>Bundle bundle = intent.getExtras();
 Log.e(&quot;mzy&quot;,&quot;bundle.getString()&quot;+bundle.getString(&quot;bundle&quot;));
 </code></pre><p>但是书中没有提到使用json传递的方式来实现进程间通信。当然还是有更炫酷的实现方式，请往下看。</p>
-<p>####2.使用文件共享<br>好吧，个人感觉这种方式其实并没有多大卵用，除非是一些长期需要使用的信息使用这种方式还是挺好的，作为缓存的方式。</p>
+<h4 id="2-使用文件共享"><a href="#2-使用文件共享" class="headerlink" title="2.使用文件共享"></a>2.使用文件共享</h4><p>好吧，个人感觉这种方式其实并没有多大卵用，除非是一些长期需要使用的信息使用这种方式还是挺好的，作为缓存的方式。</p>
 <p>这个就是一个进程写文件，一个进程读文件的方式实现进程间通信的。</p>
 <p>大体就是用的Java读写文件的方式。很简单就不列出来了，但是使用的时候还是要注意一些事情的</p>
 <pre><code>1.并发读/写导致数据不是最新数据
 2.并发写，导致数据错误
 3.SharedPreferences也是一种文件读写的方式。这个用在文件共享实现进程通信是不可取的。因为系统会对SharedPreferences进行缓存，导致数据不是最新数据。
-</code></pre><p>####3.使用Messenger<br>使用Messenger传递Message，可以实现进程间通信。其底层实现是AIDL，对AIDL进行了封装，使用起来比较简单。下面看看代码实现。</p>
+</code></pre><h4 id="3-使用Messenger"><a href="#3-使用Messenger" class="headerlink" title="3.使用Messenger"></a>3.使用Messenger</h4><p>使用Messenger传递Message，可以实现进程间通信。其底层实现是AIDL，对AIDL进行了封装，使用起来比较简单。下面看看代码实现。</p>
 <p>分为服务端和客户端两个进程</p>
 <p><strong><em>3.1服务端接收客户端消息</em></strong><br><em>3.1.1服务端进程</em><br>在服务端创建一个Service来处理客户端的请求，创建一个Handle，并通过它来创建一个Messenger对象，再在Service的onBind中返回这个Messenger对象底层的Binder即可，说的太模糊，还是看服务端的代码吧</p>
 <pre><code>public class MessengerService extends Service {
@@ -289,7 +289,7 @@ Log.e(&quot;mzy&quot;,&quot;bundle.getString()&quot;+bundle.getString(&quot;bund
     }
 }
 </code></pre><p>好了，这样就实现了使用Messenger进程间通信了。不可以只是停留在客户端单相思的程度，当然要你来我往情意绵绵，那我们来实现一下互相之间的通信</p>
-<p>####<em>3.2客户端与服务端交互</em><br>道理其实都差不多的，服务端在收到消息以后再给客户端发送一条消息即可。</p>
+<h4 id="3-2客户端与服务端交互"><a href="#3-2客户端与服务端交互" class="headerlink" title="3.2客户端与服务端交互"></a><em>3.2客户端与服务端交互</em></h4><p>道理其实都差不多的，服务端在收到消息以后再给客户端发送一条消息即可。</p>
 <p><em>3.2.1服务端修改</em></p>
 <pre><code>public void handleMessage(Message msg) {
      switch (msg.what){
@@ -372,9 +372,8 @@ Log.e(&quot;mzy&quot;,&quot;bundle.getString()&quot;+bundle.getString(&quot;bund
         super.onDestroy();
     }
 }
-</code></pre><p>####3.3Messenger实现多进程通信小结<br>Messenger使用起来还是相对简单的。可以实现一对多的多进程通信（通过绑定Service）。但是由于其传递参数依赖于Bundle，所以传递的数据类型受到了限制。而且不能很好的处理高并发情况</p>
-<p>####4.使用AIDL</p>
-<p>要不先休息一下？下一篇再写AIDL吧。看个海贼先</p>
+</code></pre><h4 id="3-3Messenger实现多进程通信小结"><a href="#3-3Messenger实现多进程通信小结" class="headerlink" title="3.3Messenger实现多进程通信小结"></a>3.3Messenger实现多进程通信小结</h4><p>Messenger使用起来还是相对简单的。可以实现一对多的多进程通信（通过绑定Service）。但是由于其传递参数依赖于Bundle，所以传递的数据类型受到了限制。而且不能很好的处理高并发情况</p>
+<h4 id="4-使用AIDL"><a href="#4-使用AIDL" class="headerlink" title="4.使用AIDL"></a>4.使用AIDL</h4><p>要不先休息一下？下一篇再写AIDL吧。看个海贼先</p>
 
       
 
