@@ -8,16 +8,16 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>关于android进程间通信 | 明章永的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="android开发中难免会遇到要求开发多进程的应用程序。在使用中总是缺少总结，以至于在遇到问题时只能依赖于google之类的。最近看了任玉刚老师的《Ａndriod开发艺术探索》这本书，第二章就讲到了多进程的通信方式，比较全面。那么我也对学过的东西总结一下吧。">
+  <meta name="description" content="android开发中难免会遇到要求开发多进程的应用程序。在使用中总是缺少总结，以至于在遇到问题时只能依赖于google之类的。最近看了任玉刚老师的《Android开发艺术探索》这本书，第二章就讲到了多进程的通信方式，比较全面。那么我也对学过的东西总结一下吧。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于android进程间通信">
 <meta property="og:url" content="http://yoursite.com/2017/03/12/关于android进程间通信/index.html">
 <meta property="og:site_name" content="明章永的博客">
-<meta property="og:description" content="android开发中难免会遇到要求开发多进程的应用程序。在使用中总是缺少总结，以至于在遇到问题时只能依赖于google之类的。最近看了任玉刚老师的《Ａndriod开发艺术探索》这本书，第二章就讲到了多进程的通信方式，比较全面。那么我也对学过的东西总结一下吧。">
-<meta property="og:updated_time" content="2017-03-12T13:02:48.000Z">
+<meta property="og:description" content="android开发中难免会遇到要求开发多进程的应用程序。在使用中总是缺少总结，以至于在遇到问题时只能依赖于google之类的。最近看了任玉刚老师的《Android开发艺术探索》这本书，第二章就讲到了多进程的通信方式，比较全面。那么我也对学过的东西总结一下吧。">
+<meta property="og:updated_time" content="2017-03-12T13:04:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于android进程间通信">
-<meta name="twitter:description" content="android开发中难免会遇到要求开发多进程的应用程序。在使用中总是缺少总结，以至于在遇到问题时只能依赖于google之类的。最近看了任玉刚老师的《Ａndriod开发艺术探索》这本书，第二章就讲到了多进程的通信方式，比较全面。那么我也对学过的东西总结一下吧。">
+<meta name="twitter:description" content="android开发中难免会遇到要求开发多进程的应用程序。在使用中总是缺少总结，以至于在遇到问题时只能依赖于google之类的。最近看了任玉刚老师的《Android开发艺术探索》这本书，第二章就讲到了多进程的通信方式，比较全面。那么我也对学过的东西总结一下吧。">
   
     <link rel="alternative" href="/atom.xml" title="明章永的博客" type="application/atom+xml">
   
@@ -177,7 +177,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>android开发中难免会遇到要求开发多进程的应用程序。在使用中总是缺少总结，以至于在遇到问题时只能依赖于google之类的。最近看了任玉刚老师的《Ａndriod开发艺术探索》这本书，第二章就讲到了多进程的通信方式，比较全面。那么我也对学过的东西总结一下吧。<br><a id="more"></a></p>
+        <p>android开发中难免会遇到要求开发多进程的应用程序。在使用中总是缺少总结，以至于在遇到问题时只能依赖于google之类的。最近看了任玉刚老师的《Android开发艺术探索》这本书，第二章就讲到了多进程的通信方式，比较全面。那么我也对学过的东西总结一下吧。<br><a id="more"></a></p>
 <p>####1.使用Bundle<br>android 在启动activity ，service，receiver时可以用Bundle实现进程间的通信，同过Intent为载体。这是进程间通信最简单的一种方式了。</p>
 <pre><code>Intent intent = new Intent(this,BookManagerService.class);
 Bundle bundle = new Bundle();
