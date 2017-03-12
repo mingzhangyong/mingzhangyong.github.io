@@ -155,6 +155,254 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-关于android进程间通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/12/关于android进程间通信/">关于android进程间通信</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/12/关于android进程间通信/" class="archive-article-date">
+  	<time datetime="2017-03-12T02:41:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>android开发中难免会遇到要求开发多进程的应用程序。在使用中总是缺少总结，以至于在遇到问题时只能依赖于ｇoogle之类的。最近看了任玉刚老师的《Ａndriod开发艺术探索》这本书，第二章就讲到了多进程的通信方式，比较全面。那么我也对学过的东西总结一下吧。</p>
+<p>####1.使用Ｂundle<br>android 在启动activity ，service，receiver时可以用Bundle实现进程间的通信，同过Intent为载体。这是进程间通信最简单的一种方式了。</p>
+<pre><code>Intent intent = new Intent(this,BookManagerService.class);
+Bundle bundle = new Bundle();
+bundle.putString(&quot;bundle&quot;,&quot;hello ipc&quot;);
+intent.putExtras(bundle);
+bindService(intent,mConnection,BIND_AUTO_CREATE);
+</code></pre><p>  接着在BookManagerService里面根据intent获取到bundle携带的信息即可。</p>
+<p>  那么问题来了，既然这么简单那就用这种方式不就好了吗？</p>
+<p>  然而在实际开发中并不止是传递一个字符这么简单。如果要传递一个对象呢？</p>
+<p>  确实，我们发现Bundle在传递参数时是可以携带可序列化的对象的。</p>
+<pre><code>bundle.putParcelable(&quot;ParcelableClass&quot;,books);
+</code></pre><p>  这种方式在同一个进程里面是可行的，然鹅在多进程中就会出错了，会出现“Class not find”这种错误。原因是定义的boos类是属于当前进程的，其他进程获取不到，即使你把该类复制到新的进程里面也不可能被反序列化出来，因为在底层上他们已经不是同一个类了。</p>
+<p>  那么bundle到底支持哪些类型的数据呢？</p>
+<pre><code>1.基本数据类型
+2.可序列化的对象（实现了Parcellable接口，实现了 Serializable接口的对象） 
+3.以及一些Android支持的特殊对象
+</code></pre><p>  那么要在进程之间传递对象该怎么实现呢？</p>
+<p> <strong><em>gson解析成json字符串然后传递</em></strong></p>
+<pre><code>Intent intent = new Intent(this,BookManagerService.class);
+Bundle bundle = new Bundle();
+Books books = new Books(1,&quot;ming&quot;);
+Gson gson = new Gson();
+bundle.putString(&quot;bundle&quot;,gson.toJson(books));
+intent.putExtras(bundle);
+bindService(intent,mConnection,BIND_AUTO_CREATE);
+</code></pre><p>这里将可序列化的对象用gson转换为json字符串，实现使用bundle传递可序列化对象。在BookManagerService里面再获取到books对象</p>
+<pre><code>Bundle bundle = intent.getExtras();
+Log.e(&quot;mzy&quot;,&quot;bundle.getString()&quot;+bundle.getString(&quot;bundle&quot;));
+</code></pre><p>但是书中没有提到使用json传递的方式来实现进程间通信。当然还是有更炫酷的实现方式，请往下看。</p>
+<p>####2.使用文件共享<br>好吧，个人感觉这种方式其实并没有多大卵用，除非是一些长期需要使用的信息使用这种方式还是挺好的，作为缓存的方式。</p>
+<p>这个就是一个进程写文件，一个进程读文件的方式实现进程间通信的。</p>
+<p>大体就是用的Java读写文件的方式。很简单就不列出来了，但是使用的时候还是要注意一些事情的</p>
+<pre><code>1.并发读/写导致数据不是最新数据
+2.并发写，导致数据错误
+3.SharedPreferences也是一种文件读写的方式。这个用在文件共享实现进程通信是不可取的。因为系统会对SharedPreferences进行缓存，导致数据不是最新数据。
+</code></pre><p>####3.使用Messenger<br>使用Messenger传递Message，可以实现进程间通信。其底层实现是AIDL，对AIDL进行了封装，使用起来比较简单。下面看看代码实现。</p>
+<p>分为服务端和客户端两个进程</p>
+<p><strong><em>3.1服务端接收客户端消息</em></strong><br><em>3.1.1服务端进程</em><br>在服务端创建一个Service来处理客户端的请求，创建一个Handle，并通过它来创建一个Messenger对象，再在Service的onBind中返回这个Messenger对象底层的Binder即可，说的太模糊，还是看服务端的代码吧</p>
+<pre><code>public class MessengerService extends Service {
+    private static final String TAG = &quot;MessengerService&quot;;
+
+    private static class MessengerHandler extends Handler{
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case MyConstants.MSG_FROM_CLIENT :
+
+                    Bundle bundle1 = msg.getData();
+                    Log.i(TAG,&quot;receive msg from Client :&quot;+bundle1.getString(&quot;msg&quot;));
+                    break;
+                default:
+                    super.handleMessage(msg);
+            }
+        }
+    }
+
+    private final Messenger mMessenger = new Messenger(new MessengerHandler());
+
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return mMessenger.getBinder();
+    }
+}
+</code></pre><p>内容不多用一个Handle创建一个Messenger，然后在onBInd里面返回Mes的BInder，handler里面处理接收到的信息</p>
+<p><em>3.1.2客户端进程</em><br>客户端首先要绑定服务端的Service，然后通过服务端返回的IBinder对象创建一个Messenger，就是通过这个Messenger对象给服务端发送消息的。，发送的消息类型为Message对象。</p>
+<pre><code>public class MessengerActivity extends AppCompatActivity {
+    private static final String TAG = &quot;MessengerActivity&quot;;
+
+    private Messenger messenger;
+    //绑定Service
+    private ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            //获取Messenger
+            messenger = new Messenger(iBinder);
+            //创建Message
+            Message msg = Message.obtain(null,MyConstants.MSG_FROM_CLIENT);
+            Bundle data = new Bundle();
+            data.putString(&quot;msg&quot;,&quot;hello i am client.&quot;);
+            msg.setData(data);
+            try {
+                //发送消息
+                messenger.send(msg);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            //链接失败处理
+        }
+    };
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Intent intent = new Intent(MessengerActivity.this,MessengerService.class);
+        bindService(intent,mConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        //记得注销
+        unbindService(mConnection);
+        super.onDestroy();
+    }
+}
+</code></pre><p>好了，这样就实现了使用Messenger进程间通信了。不可以只是停留在客户端单相思的程度，当然要你来我往情意绵绵，那我们来实现一下互相之间的通信</p>
+<p>####<em>3.2客户端与服务端交互</em><br>道理其实都差不多的，服务端在收到消息以后再给客户端发送一条消息即可。</p>
+<p><em>3.2.1服务端修改</em></p>
+<pre><code>public void handleMessage(Message msg) {
+     switch (msg.what){
+         case MyConstants.MSG_FROM_CLIENT :
+
+             Bundle bundle1 = msg.getData();
+             Log.i(TAG,&quot;receive msg from Client :&quot;+bundle1.getString(&quot;msg&quot;));
+             Messenger client = msg.replyTo;
+             Message replyMessage = Message.obtain(null,MyConstants.MSG_FROM_SERVICE);
+             Bundle bundle = new Bundle();
+             bundle.putString(&quot;reply&quot;,&quot;ok i got your message&quot;);
+             replyMessage.setData(bundle);
+
+             try {
+                 client.send(replyMessage);
+             } catch (RemoteException e) {
+                 e.printStackTrace();
+             }
+             break;
+         default:
+             super.handleMessage(msg);
+     }
+ }
+</code></pre><p><em>3.2.2客户端修改</em></p>
+<pre><code>public class MessengerActivity extends AppCompatActivity {
+    private static final String TAG = &quot;MessengerActivity&quot;;
+
+    private Messenger messenger;
+
+    private ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            messenger = new Messenger(iBinder);
+            Message msg = Message.obtain(null,MyConstants.MSG_FROM_CLIENT);
+            Bundle data = new Bundle();
+            data.putString(&quot;msg&quot;,&quot;hello i am client.&quot;);
+            msg.setData(data);
+
+            //将客户端的接收用的messenger传给服务端。
+            msg.replyTo = getReplyMessenger;
+            try {
+                messenger.send(msg);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+
+        }
+    };
+
+    private Messenger getReplyMessenger = new Messenger(new MessengerHandler());
+
+    private static class MessengerHandler extends Handler{
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case MyConstants.MSG_FROM_SERVICE:
+                    Log.i(TAG,&quot;receive message from service :&quot;+msg.getData().getString(&quot;reply&quot;));
+                    break;
+                default:
+                    super.handleMessage(msg);
+            }
+        }
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Intent intent = new Intent(MessengerActivity.this,MessengerService.class);
+        bindService(intent,mConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        unbindService(mConnection);
+        super.onDestroy();
+    }
+}
+</code></pre><p>####3.3Messenger实现多进程通信小结<br>Messenger使用起来还是相对简单的。可以实现一对多的多进程通信（通过绑定Service）。但是由于其传递参数依赖于Bundle，所以传递的数据类型受到了限制。而且不能很好的处理高并发情况</p>
+<p>####4.使用AIDL</p>
+<p>要不先休息一下？下一篇再写AIDL吧。看个海贼先</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/12/关于android进程间通信/">我还要 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-微信小程序radio不能改变大小，自己重写一个吧" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     

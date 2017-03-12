@@ -6,27 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>微信小程序radio不能改变大小，自己重写一个吧 | 明章永的博客</title>
+  <title>关于android进程间通信 | 明章永的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="小程序自带的radio似乎是不能调整大小的，在项目中使用时很不方便，时常会影响整个界面的效果。为了解决这个问题，我使用text标签结合icon标签实现了radio效果。
-这里我们实现一个选择地区的单选框
-1.使用radio的效果">
+  <meta name="description" content="android开发中难免会遇到要求开发多进程的应用程序。在使用中总是缺少总结，以至于在遇到问题时只能依赖于ｇoogle之类的。最近看了任玉刚老师的《Ａndriod开发艺术探索》这本书，第二章就讲到了多进程的通信方式，比较全面。那么我也对学过的东西总结一下吧。
+####1.使用Ｂundleandroid 在启动activity ，service，receiver时可以用Bundle实现进程间的通信，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="微信小程序radio不能改变大小，自己重写一个吧">
-<meta property="og:url" content="http://yoursite.com/2017/02/25/微信小程序radio不能改变大小，自己重写一个吧/index.html">
+<meta property="og:title" content="关于android进程间通信">
+<meta property="og:url" content="http://yoursite.com/2017/03/12/关于android进程间通信/index.html">
 <meta property="og:site_name" content="明章永的博客">
-<meta property="og:description" content="小程序自带的radio似乎是不能调整大小的，在项目中使用时很不方便，时常会影响整个界面的效果。为了解决这个问题，我使用text标签结合icon标签实现了radio效果。
-这里我们实现一个选择地区的单选框
-1.使用radio的效果">
-<meta property="og:image" content="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/radio_select_area.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/my_select_area.jpg">
-<meta property="og:updated_time" content="2017-02-25T06:03:57.000Z">
+<meta property="og:description" content="android开发中难免会遇到要求开发多进程的应用程序。在使用中总是缺少总结，以至于在遇到问题时只能依赖于ｇoogle之类的。最近看了任玉刚老师的《Ａndriod开发艺术探索》这本书，第二章就讲到了多进程的通信方式，比较全面。那么我也对学过的东西总结一下吧。
+####1.使用Ｂundleandroid 在启动activity ，service，receiver时可以用Bundle实现进程间的通信，">
+<meta property="og:updated_time" content="2017-03-12T12:57:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="微信小程序radio不能改变大小，自己重写一个吧">
-<meta name="twitter:description" content="小程序自带的radio似乎是不能调整大小的，在项目中使用时很不方便，时常会影响整个界面的效果。为了解决这个问题，我使用text标签结合icon标签实现了radio效果。
-这里我们实现一个选择地区的单选框
-1.使用radio的效果">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/radio_select_area.jpg">
+<meta name="twitter:title" content="关于android进程间通信">
+<meta name="twitter:description" content="android开发中难免会遇到要求开发多进程的应用程序。在使用中总是缺少总结，以至于在遇到问题时只能依赖于ｇoogle之类的。最近看了任玉刚老师的《Ａndriod开发艺术探索》这本书，第二章就讲到了多进程的通信方式，比较全面。那么我也对学过的东西总结一下吧。
+####1.使用Ｂundleandroid 在启动activity ，service，receiver时可以用Bundle实现进程间的通信，">
   
     <link rel="alternative" href="/atom.xml" title="明章永的博客" type="application/atom+xml">
   
@@ -166,44 +160,224 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-微信小程序radio不能改变大小，自己重写一个吧" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-关于android进程间通信" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      微信小程序radio不能改变大小，自己重写一个吧
+      关于android进程间通信
     </h1>
   
 
         
-        <a href="/2017/02/25/微信小程序radio不能改变大小，自己重写一个吧/" class="archive-article-date">
-  	<time datetime="2017-02-25T06:02:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-25</time>
+        <a href="/2017/03/12/关于android进程间通信/" class="archive-article-date">
+  	<time datetime="2017-03-12T02:41:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>小程序自带的radio似乎是不能调整大小的，在项目中使用时很不方便，时常会影响整个界面的效果。为了解决这个问题，我使用text标签结合icon标签实现了radio效果。</p>
-<p>这里我们实现一个选择地区的单选框</p>
-<p><strong><em>1.使用radio的效果</em></strong><br><img src="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/radio_select_area.jpg" alt="这里写图片描述"><br><a id="more"></a><br>可以清楚的看出来圆圈的大小和字体的大小非常不协调。至于radio如何实现的，这里就不赘述了，大家可以在官方教程中学习<a href="https://mp.weixin.qq.com/debug/wxadoc/dev/" target="_blank" rel="external">简易教程-小程序</a></p>
-<p><strong><em>2.使用text加 icon实现radio效果</em></strong></p>
-<p>先上效果图<br><img src="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/my_select_area.jpg" alt="这里写图片描述"></p>
-<p>这里的icon可以调整大小，调整位置。</p>
-<p>接下来看看如何实现的吧。</p>
-<p><strong><em>思路</em></strong>：<br>左边一个&lt; text&gt;右边一个&lt; icon&gt;来实现radio效果。<br>以列表方式排列所有地区area，给地区设置isSelect属性，如果isSelect=true则显示的icon 的type为success否则icon的type显示circle。<br>当text被点击时，根据area的id来确定被点击的text，被点击的text对应的area的isSelect属性设置为true否则设置为false。</p>
-<p>先附上wxml文件代码部分：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;scroll-view hidden=&quot;&#123;&#123;hideArea&#125;&#125;&quot; scroll-y=&quot;true&quot; style=&quot;height: 100px;&quot; bindscrolltoupper=&quot;upper&quot; bindscrolltolower=&quot;lower&quot; bindscroll=&quot;scroll&quot; scroll-into-view=&quot;&#123;&#123;toView&#125;&#125;&quot; scroll-top=&quot;&#123;&#123;scrollTop&#125;&#125;&quot;&gt;</div><div class="line">	&lt;view class=&quot;radio-group&quot; &gt;</div><div class="line">		&lt;label wx:for=&quot;&#123;&#123;areas&#125;&#125;&quot; wx:for-item=&quot;area&quot;&gt;</div><div class="line">			&lt;text bindtap=&quot;selectAreaOk&quot; data-areaId=&quot;&#123;&#123;area.id&#125;&#125;&quot;&gt;&#123;&#123;area.name&#125;&#125;&lt;/text&gt; </div><div class="line">			&lt;icon wx:if=&quot;&#123;&#123;area.isSelect&#125;&#125;&quot; type=&quot;success&quot; size=&quot;10&quot;/&gt; </div><div class="line">			&lt;icon wx:else type=&quot;circle&quot; size=&quot;10&quot;/&gt;</div><div class="line">		&lt;/label&gt;</div><div class="line">	&lt;/view&gt;</div><div class="line">&lt;/scroll-view&gt;</div></pre></td></tr></table></figure>
-<p>先设定一个scroll-view，设置选择框的父容器位置大小其中radio-group的wxss设定了容器内字体大小已经排练方式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">.radio-group&#123;</div><div class="line">    font-size: 26rpx;</div><div class="line">    display: flex;</div><div class="line">    flex-direction: column;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
-<p>接下来遍历了areas数组用来显示  地区名称+icon 其中为地区名称 &lt; text&gt;设置了 bindtap、data-areaId 。这里要跟js进行数据交互，其中data-areaId为传递过去的参数。</p>
-<p>根据area对象的isSelect属性来确定显示的&lt; icon&gt;,其中一个是圆圈，一个是绿色的对勾。示例中icon的大小设置为10，这里可以随意改变其大小。</p>
-<p>接下来是js代码部分。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">//选择区域</div><div class="line">  selectAreaOk: function(event)&#123;</div><div class="line">    var selectAreaId = event.target.dataset.areaid;</div><div class="line">    var that = this</div><div class="line">    areaId = selectAreaId</div><div class="line">    for(var i = 0;i&lt;this.data.areas.length;i++)&#123;</div><div class="line">      if(this.data.areas[i].id==selectAreaId)&#123;</div><div class="line">        this.data.areas[i].isSelect=true</div><div class="line">      &#125;else&#123;</div><div class="line">        this.data.areas[i].isSelect=false</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    this.setData(&#123;</div><div class="line">      areas:this.data.areas,</div><div class="line">      skus:[],</div><div class="line">      hideArea:true</div><div class="line">    &#125;)</div><div class="line">    getSkus(that,selectAreaId)</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
-<p>在js代码里面接收text的点击事件并接收到传递过来的参数，遍历areas数组，将选中的area的isSelect属性设置为true，其余设置为false，再刷新wxml的areas部分。</p>
-<p>ok就这么简单。</p>
+        <p>android开发中难免会遇到要求开发多进程的应用程序。在使用中总是缺少总结，以至于在遇到问题时只能依赖于ｇoogle之类的。最近看了任玉刚老师的《Ａndriod开发艺术探索》这本书，第二章就讲到了多进程的通信方式，比较全面。那么我也对学过的东西总结一下吧。</p>
+<p>####1.使用Ｂundle<br>android 在启动activity ，service，receiver时可以用Bundle实现进程间的通信，同过Intent为载体。这是进程间通信最简单的一种方式了。</p>
+<pre><code>Intent intent = new Intent(this,BookManagerService.class);
+Bundle bundle = new Bundle();
+bundle.putString(&quot;bundle&quot;,&quot;hello ipc&quot;);
+intent.putExtras(bundle);
+bindService(intent,mConnection,BIND_AUTO_CREATE);
+</code></pre><p>  接着在BookManagerService里面根据intent获取到bundle携带的信息即可。</p>
+<p>  那么问题来了，既然这么简单那就用这种方式不就好了吗？</p>
+<p>  然而在实际开发中并不止是传递一个字符这么简单。如果要传递一个对象呢？</p>
+<p>  确实，我们发现Bundle在传递参数时是可以携带可序列化的对象的。</p>
+<pre><code>bundle.putParcelable(&quot;ParcelableClass&quot;,books);
+</code></pre><p>  这种方式在同一个进程里面是可行的，然鹅在多进程中就会出错了，会出现“Class not find”这种错误。原因是定义的boos类是属于当前进程的，其他进程获取不到，即使你把该类复制到新的进程里面也不可能被反序列化出来，因为在底层上他们已经不是同一个类了。</p>
+<p>  那么bundle到底支持哪些类型的数据呢？</p>
+<pre><code>1.基本数据类型
+2.可序列化的对象（实现了Parcellable接口，实现了 Serializable接口的对象） 
+3.以及一些Android支持的特殊对象
+</code></pre><p>  那么要在进程之间传递对象该怎么实现呢？</p>
+<p> <strong><em>gson解析成json字符串然后传递</em></strong></p>
+<pre><code>Intent intent = new Intent(this,BookManagerService.class);
+Bundle bundle = new Bundle();
+Books books = new Books(1,&quot;ming&quot;);
+Gson gson = new Gson();
+bundle.putString(&quot;bundle&quot;,gson.toJson(books));
+intent.putExtras(bundle);
+bindService(intent,mConnection,BIND_AUTO_CREATE);
+</code></pre><p>这里将可序列化的对象用gson转换为json字符串，实现使用bundle传递可序列化对象。在BookManagerService里面再获取到books对象</p>
+<pre><code>Bundle bundle = intent.getExtras();
+Log.e(&quot;mzy&quot;,&quot;bundle.getString()&quot;+bundle.getString(&quot;bundle&quot;));
+</code></pre><p>但是书中没有提到使用json传递的方式来实现进程间通信。当然还是有更炫酷的实现方式，请往下看。</p>
+<p>####2.使用文件共享<br>好吧，个人感觉这种方式其实并没有多大卵用，除非是一些长期需要使用的信息使用这种方式还是挺好的，作为缓存的方式。</p>
+<p>这个就是一个进程写文件，一个进程读文件的方式实现进程间通信的。</p>
+<p>大体就是用的Java读写文件的方式。很简单就不列出来了，但是使用的时候还是要注意一些事情的</p>
+<pre><code>1.并发读/写导致数据不是最新数据
+2.并发写，导致数据错误
+3.SharedPreferences也是一种文件读写的方式。这个用在文件共享实现进程通信是不可取的。因为系统会对SharedPreferences进行缓存，导致数据不是最新数据。
+</code></pre><p>####3.使用Messenger<br>使用Messenger传递Message，可以实现进程间通信。其底层实现是AIDL，对AIDL进行了封装，使用起来比较简单。下面看看代码实现。</p>
+<p>分为服务端和客户端两个进程</p>
+<p><strong><em>3.1服务端接收客户端消息</em></strong><br><em>3.1.1服务端进程</em><br>在服务端创建一个Service来处理客户端的请求，创建一个Handle，并通过它来创建一个Messenger对象，再在Service的onBind中返回这个Messenger对象底层的Binder即可，说的太模糊，还是看服务端的代码吧</p>
+<pre><code>public class MessengerService extends Service {
+    private static final String TAG = &quot;MessengerService&quot;;
+
+    private static class MessengerHandler extends Handler{
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case MyConstants.MSG_FROM_CLIENT :
+
+                    Bundle bundle1 = msg.getData();
+                    Log.i(TAG,&quot;receive msg from Client :&quot;+bundle1.getString(&quot;msg&quot;));
+                    break;
+                default:
+                    super.handleMessage(msg);
+            }
+        }
+    }
+
+    private final Messenger mMessenger = new Messenger(new MessengerHandler());
+
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return mMessenger.getBinder();
+    }
+}
+</code></pre><p>内容不多用一个Handle创建一个Messenger，然后在onBInd里面返回Mes的BInder，handler里面处理接收到的信息</p>
+<p><em>3.1.2客户端进程</em><br>客户端首先要绑定服务端的Service，然后通过服务端返回的IBinder对象创建一个Messenger，就是通过这个Messenger对象给服务端发送消息的。，发送的消息类型为Message对象。</p>
+<pre><code>public class MessengerActivity extends AppCompatActivity {
+    private static final String TAG = &quot;MessengerActivity&quot;;
+
+    private Messenger messenger;
+    //绑定Service
+    private ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            //获取Messenger
+            messenger = new Messenger(iBinder);
+            //创建Message
+            Message msg = Message.obtain(null,MyConstants.MSG_FROM_CLIENT);
+            Bundle data = new Bundle();
+            data.putString(&quot;msg&quot;,&quot;hello i am client.&quot;);
+            msg.setData(data);
+            try {
+                //发送消息
+                messenger.send(msg);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            //链接失败处理
+        }
+    };
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Intent intent = new Intent(MessengerActivity.this,MessengerService.class);
+        bindService(intent,mConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        //记得注销
+        unbindService(mConnection);
+        super.onDestroy();
+    }
+}
+</code></pre><p>好了，这样就实现了使用Messenger进程间通信了。不可以只是停留在客户端单相思的程度，当然要你来我往情意绵绵，那我们来实现一下互相之间的通信</p>
+<p>####<em>3.2客户端与服务端交互</em><br>道理其实都差不多的，服务端在收到消息以后再给客户端发送一条消息即可。</p>
+<p><em>3.2.1服务端修改</em></p>
+<pre><code>public void handleMessage(Message msg) {
+     switch (msg.what){
+         case MyConstants.MSG_FROM_CLIENT :
+
+             Bundle bundle1 = msg.getData();
+             Log.i(TAG,&quot;receive msg from Client :&quot;+bundle1.getString(&quot;msg&quot;));
+             Messenger client = msg.replyTo;
+             Message replyMessage = Message.obtain(null,MyConstants.MSG_FROM_SERVICE);
+             Bundle bundle = new Bundle();
+             bundle.putString(&quot;reply&quot;,&quot;ok i got your message&quot;);
+             replyMessage.setData(bundle);
+
+             try {
+                 client.send(replyMessage);
+             } catch (RemoteException e) {
+                 e.printStackTrace();
+             }
+             break;
+         default:
+             super.handleMessage(msg);
+     }
+ }
+</code></pre><p><em>3.2.2客户端修改</em></p>
+<pre><code>public class MessengerActivity extends AppCompatActivity {
+    private static final String TAG = &quot;MessengerActivity&quot;;
+
+    private Messenger messenger;
+
+    private ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            messenger = new Messenger(iBinder);
+            Message msg = Message.obtain(null,MyConstants.MSG_FROM_CLIENT);
+            Bundle data = new Bundle();
+            data.putString(&quot;msg&quot;,&quot;hello i am client.&quot;);
+            msg.setData(data);
+
+            //将客户端的接收用的messenger传给服务端。
+            msg.replyTo = getReplyMessenger;
+            try {
+                messenger.send(msg);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+
+        }
+    };
+
+    private Messenger getReplyMessenger = new Messenger(new MessengerHandler());
+
+    private static class MessengerHandler extends Handler{
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case MyConstants.MSG_FROM_SERVICE:
+                    Log.i(TAG,&quot;receive message from service :&quot;+msg.getData().getString(&quot;reply&quot;));
+                    break;
+                default:
+                    super.handleMessage(msg);
+            }
+        }
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Intent intent = new Intent(MessengerActivity.this,MessengerService.class);
+        bindService(intent,mConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        unbindService(mConnection);
+        super.onDestroy();
+    }
+}
+</code></pre><p>####3.3Messenger实现多进程通信小结<br>Messenger使用起来还是相对简单的。可以实现一对多的多进程通信（通过绑定Service）。但是由于其传递参数依赖于Bundle，所以传递的数据类型受到了限制。而且不能很好的处理高并发情况</p>
+<p>####4.使用AIDL</p>
+<p>要不先休息一下？下一篇再写AIDL吧。看个海贼先</p>
 
       
 
@@ -283,7 +457,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/02/25/微信小程序radio不能改变大小，自己重写一个吧/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/03/12/关于android进程间通信/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -297,18 +471,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/03/12/关于android进程间通信/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          关于android进程间通信
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/02/25/android-release版本去掉log/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">android release版本去掉log</div>
+    <a href="/2017/02/25/微信小程序radio不能改变大小，自己重写一个吧/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">微信小程序radio不能改变大小，自己重写一个吧</div>
       <i class="icon-circle-right"></i>
     </a>
   
