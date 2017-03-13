@@ -6,14 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>明章永的博客</title>
+  <title>关于Android进程间通信II | 明章永的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="明章永的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="在上一篇关于Android进程间通信中介绍了Android的三种进程间通信的方式。这里再介绍一种牛逼的IPC方式
+AIDL
+上次去面试一家心仪的公司，面试官有问道关于Android多进程通信相关的方法，我吧能想到的全都说了，但是没有说道一个让面试官满意的方式。是的，面试官要的答案就是AIDL实现进程间的通信。
+上一篇文章中介绍的三种方式都有自己的局限性和缺点(这个在后面还会总结一下)
+那么AIDL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于Android进程间通信II">
+<meta property="og:url" content="http://yoursite.com/2017/03/13/关于Android进程间通信II/index.html">
 <meta property="og:site_name" content="明章永的博客">
+<meta property="og:description" content="在上一篇关于Android进程间通信中介绍了Android的三种进程间通信的方式。这里再介绍一种牛逼的IPC方式
+AIDL
+上次去面试一家心仪的公司，面试官有问道关于Android多进程通信相关的方法，我吧能想到的全都说了，但是没有说道一个让面试官满意的方式。是的，面试官要的答案就是AIDL实现进程间的通信。
+上一篇文章中介绍的三种方式都有自己的局限性和缺点(这个在后面还会总结一下)
+那么AIDL">
+<meta property="og:updated_time" content="2017-03-13T09:53:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="明章永的博客">
+<meta name="twitter:title" content="关于Android进程间通信II">
+<meta name="twitter:description" content="在上一篇关于Android进程间通信中介绍了Android的三种进程间通信的方式。这里再介绍一种牛逼的IPC方式
+AIDL
+上次去面试一家心仪的公司，面试官有问道关于Android多进程通信相关的方法，我吧能想到的全都说了，但是没有说道一个让面试官满意的方式。是的，面试官要的答案就是AIDL实现进程间的通信。
+上一篇文章中介绍的三种方式都有自己的局限性和缺点(这个在后面还会总结一下)
+那么AIDL">
   
     <link rel="alternative" href="/atom.xml" title="明章永的博客" type="application/atom+xml">
   
@@ -153,16 +169,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-关于Android进程间通信II" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-关于Android进程间通信II" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/13/关于Android进程间通信II/">关于Android进程间通信II</a>
+    <h1 class="article-title" itemprop="name">
+      关于Android进程间通信II
     </h1>
   
 
@@ -254,18 +268,74 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/13/关于Android进程间通信II/">我还要 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/03/13/关于Android进程间通信II/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
 
-
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2017/03/13/马平狮子茶叶面向全世界！/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">马平狮子茶叶面向全世界！</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
 
@@ -273,346 +343,10 @@
 
 
   
-    <article id="post-马平狮子茶叶面向全世界！" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/13/马平狮子茶叶面向全世界！/">马平狮子茶叶面向全世界！</a>
-    </h1>
+    <div class="duoshuo"></div>
   
 
-        
-        <a href="/2017/03/13/马平狮子茶叶面向全世界！/" class="archive-article-date">
-  	<time datetime="2017-03-13T01:38:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="诚-交-茶-友"><a href="#诚-交-茶-友" class="headerlink" title="诚  交  茶  友"></a>诚  交  茶  友</h2><p>插播广告一则，我姐家的茶叶，<strong>狮子茶叶</strong></p>
-<p>2006年开始我爸把马坪双河的一片山和一些地开发出来中了茶叶，在马坪狮子茶叶还是很有名气的，原因是茶叶地位于农村山丘之上，没有受到大城市的工业污染，加上茶农（我爸）的精心照料，茶叶味道清香纯正。</p>
-<p>关于茶叶，最鲜最香的，要数春茶第一道，在谷雨时节前的茶叶都是经过严冬在春天开出的第一道茶叶。而现在我家的茶叶也该开始采摘了，在此希望能多交一些茶友，更希望马坪的狮子茶能走出马坪，走向世界！</p>
-<p>关于我家茶叶的一些承诺：</p>
-<blockquote>
-<ul>
-<li>每年只采雨前茶（即“谷雨”以前的茶叶）；</li>
-<li>无农药残留（冬季除虫卵）；</li>
-<li>制作精细（龙井茶）；</li>
-<li>量足，绝不缺斤少两；</li>
-<li>不参杂旧茶或大厂茶；</li>
-<li>原质原味，不添加色素和人工单宁添加剂；</li>
-<li>价格300元/斤（量大从优）</li>
-<li>如果你是送礼，我还可以为您精包装，只收成本费。</li>
-</ul>
-</blockquote>
-<p>如果您爱喝茶，不妨试试，只要您留下您的</p>
-<h3 id="大名，地址，电话"><a href="#大名，地址，电话" class="headerlink" title="大名，地址，电话"></a>大名，地址，电话</h3><p>我爸爸将和老茶友一样，每年征询您的意见，直接快递到您手中，见货付款。如果您觉得有不如意的，可以拒收。真正让您实惠，省心，舒心，活（喝）得开心，我们要让您喝着茶，从内心发出感叹:“天下还有这样的好茶！”</p>
-<h1 id="联系电话-15971930361-王老师"><a href="#联系电话-15971930361-王老师" class="headerlink" title="联系电话:15971930361     王老师"></a>联系电话:15971930361     王老师</h1>
-      
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/13/马平狮子茶叶面向全世界！/">我还要 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-关于android进程间通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/12/关于android进程间通信/">关于android进程间通信</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/12/关于android进程间通信/" class="archive-article-date">
-  	<time datetime="2017-03-12T02:41:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>android开发中难免会遇到要求开发多进程的应用程序。在使用中总是缺少总结，以至于在遇到问题时只能依赖于google之类的。最近看了任玉刚老师的《Android开发艺术探索》这本书，第二章就讲到了多进程的通信方式，比较全面。那么我也对学过的东西总结一下吧。<br>
-        
-          <a class="article-more-a" href="/2017/03/12/关于android进程间通信/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/12/关于android进程间通信/">我还要 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-微信小程序radio不能改变大小，自己重写一个吧" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/25/微信小程序radio不能改变大小，自己重写一个吧/">微信小程序radio不能改变大小，自己重写一个吧</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/25/微信小程序radio不能改变大小，自己重写一个吧/" class="archive-article-date">
-  	<time datetime="2017-02-25T06:02:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>小程序自带的radio似乎是不能调整大小的，在项目中使用时很不方便，时常会影响整个界面的效果。为了解决这个问题，我使用text标签结合icon标签实现了radio效果。</p>
-<p>这里我们实现一个选择地区的单选框</p>
-<p><strong><em>1.使用radio的效果</em></strong><br><img src="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/radio_select_area.jpg" alt="这里写图片描述"><br>
-        
-          <a class="article-more-a" href="/2017/02/25/微信小程序radio不能改变大小，自己重写一个吧/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/25/微信小程序radio不能改变大小，自己重写一个吧/">我还要 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-android-release版本去掉log" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/25/android-release版本去掉log/">android release版本去掉log</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/25/android-release版本去掉log/" class="archive-article-date">
-  	<time datetime="2017-02-25T05:58:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>android开发中总会在代码中添加log，打印当前运行情况。log打印是调试时不可或缺的工具。</p>
-<p>但是不可否认的是当log打印语句中出现空指针的时候程序会crash。又或是在循环里面打印了log信息，会消耗很多系统资源。</p>
-<p><strong>目标：</strong>我们希望在打包debug包的时候保留log信息，在release包时去掉log消息。<br>
-        
-          <a class="article-more-a" href="/2017/02/25/android-release版本去掉log/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/25/android-release版本去掉log/">我还要 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-android与web交互的一些事" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/25/android与web交互的一些事/">android与web交互的一些事</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/25/android与web交互的一些事/" class="archive-article-date">
-  	<time datetime="2017-02-25T01:14:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>网页与Android原生页交互越来越多，遇到的问题也越来越多。</p>
-<p><strong><em>问题描述1</em></strong>：用户在app端登录成功，然后在app端打开一个需要登录信息（用来识别用户）的web页。<br>
-        
-          <a class="article-more-a" href="/2017/02/25/android与web交互的一些事/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/25/android与web交互的一些事/">我还要 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-h5页面与Android原生页面交互" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/25/h5页面与Android原生页面交互/">h5页面与Android原生页面交互</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/25/h5页面与Android原生页面交互/" class="archive-article-date">
-  	<time datetime="2017-02-25T01:10:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Android页面内嵌套h5页面已经是随处可见了。在Android原生页面和h5页面的取舍上那些不是本文的重点。重点是，如此多的页面用网页来写，那么必定涉及到网页与原生的交互，俗称js交互。</p>
-<p><strong><em>目标</em></strong>：h5页面点击按钮Android端接收到网页传给的json数据。<br>
-        
-          <a class="article-more-a" href="/2017/02/25/h5页面与Android原生页面交互/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/25/h5页面与Android原生页面交互/">我还要 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-  
 
 
           </div>
@@ -634,8 +368,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
