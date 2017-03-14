@@ -20,7 +20,7 @@
 接注册失败原因
 
 在进程间通信的时候，Binder会把客户端传递过来的对象重新转化并生成一个新的对象。也就是说，在操作的时候虽然都是listener但是这两个listener并不是同一个对象,所以在mListenerList.contains时会返回false。因为对">
-<meta property="og:updated_time" content="2017-03-14T10:08:01.000Z">
+<meta property="og:updated_time" content="2017-03-14T11:02:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于Android进程间通信Ⅲ">
 <meta name="twitter:description" content="上一篇说到aidl实现进程间通信，在最后却出现了解注册失败的情况，那么，这篇文章就把aidl实现进程间通信需要注意的事情介绍一下。
@@ -189,9 +189,8 @@
         <p>上一篇说到aidl实现进程间通信，在最后却出现了解注册失败的情况，那么，这篇文章就把aidl实现进程间通信需要注意的事情介绍一下。</p>
 <p><strong>接注册失败原因</strong></p>
 <blockquote>
-<p>在进程间通信的时候，Binder会把客户端传递过来的对象重新转化并生成一个新的对象。也就是说，在操作的时候虽然都是listener但是这两个listener并不是同一个对象,所以在mListenerList.contains时会返回false。因为对象是不能直接的跨进程通信的。</p>
+<p>在进程间通信的时候，Binder会把客户端传递过来的对象重新转化并生成一个新的对象。也就是说，在操作的时候虽然都是listener但是这两个listener并不是同一个对象,所以在mListenerList.contains时会返回false。因为对象是不能直接的跨进程通信的。<br><a id="more"></a><br>那看看解决方案吧</p>
 </blockquote>
-<p>那看看解决方案吧</p>
 <p><strong>RemoteCallbackList</strong></p>
 <p>书上是这么说RemoteCallbackList的：</p>
 <blockquote>
@@ -253,6 +252,7 @@
 <p>然后在客户端中申请权限</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"com.mzy.BOOK_SERVICE"</span>/&gt;</span></div></pre></td></tr></table></figure>
 <p>这样就可以添加限制了。</p>
+<p>还有一种onTransact验证方式，这里就不介绍了。</p>
 
       
 

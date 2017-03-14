@@ -178,71 +178,10 @@
         <p>上一篇说到aidl实现进程间通信，在最后却出现了解注册失败的情况，那么，这篇文章就把aidl实现进程间通信需要注意的事情介绍一下。</p>
 <p><strong>接注册失败原因</strong></p>
 <blockquote>
-<p>在进程间通信的时候，Binder会把客户端传递过来的对象重新转化并生成一个新的对象。也就是说，在操作的时候虽然都是listener但是这两个listener并不是同一个对象,所以在mListenerList.contains时会返回false。因为对象是不能直接的跨进程通信的。</p>
-</blockquote>
-<p>那看看解决方案吧</p>
-<p><strong>RemoteCallbackList</strong></p>
-<p>书上是这么说RemoteCallbackList的：</p>
-<blockquote>
-<p>RemoteCallbackList是系统专门提供的用于删除跨进程listener的接口。RemoteCallbackList是一个泛型，支持管理任意的AIDL接口。</p>
-</blockquote>
-<p>关于RemoteCallbackList的工作原理：</p>
-<blockquote>
-<p>在RemoteCallbackList内部有一个Map结构专门用来保存所有的AIDL回调，这个Map的key是IBinder类型，value是Callback类型。其中Callback中封装了真正的远程listener。当客户端注册listener的时候，它会把这个listener的信息存入mCallbacks中，其中key和value分别通过下面的方式获取</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">IBinder key = listener.asBinder()</div><div class="line">Callback value = <span class="keyword">new</span> Callback(listener,cookie)</div></pre></td></tr></table></figure>
-<blockquote>
-<p>也就是说虽然多次跨进程传输客户端的同一个对象会在服务端生成不同的对象，但是这些新生成的对象都有一个共同点，那就是它们的底层Binder是同一个对象，这样我们就可以在客户端解注册的时候，遍历服务端所有的listener，找出那个和解注册listener具有相同Binder对象的服务端listener，并把它删除，这就是RemoteCallbackList为我们做的事情。同时RemoteCallbackList还有一个很有用的功能，那就是当客户端进程终止以后，它能够自动移除客户端所注册的listener。另外RemoteCallbackList内部自动实现了线程同步的功能，所以我们使用它来注册和解注册时，不需要做额外的线程同步工作。</p>
-</blockquote>
-<p>听起来很枯燥。但是这些知识点还是要记得。</p>
-<p>看一下RemoteCallbackList的使用。<br>对BookManagerService.java修改</p>
-<p>使用RemoteCallbackList代替CopyOnWriteArrayList<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//private CopyOnWriteArrayList&lt;IOnNewBookArrivedListener&gt; mListenerList = new CopyOnWriteArrayList&lt;&gt;();</span></div><div class="line"><span class="keyword">private</span> RemoteCallbackList&lt;IOnNewBookArrivedListener&gt; mListenerList = <span class="keyword">new</span> RemoteCallbackList&lt;&gt;();</div></pre></td></tr></table></figure></p>
-<p>使用RemoteCallbackList的方式来注册和解注册</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerListener</span><span class="params">(IOnNewBookArrivedListener listener)</span> <span class="keyword">throws</span> RemoteException </span>&#123;</div><div class="line">   <span class="comment">/* if(!mListenerList.contains(listener))&#123;</span></div><div class="line">        mListenerList.add(listener);</div><div class="line">    &#125;else&#123;</div><div class="line">        Log.i("mzy","already exists");</div><div class="line">    &#125;</div><div class="line">    Log.i("mzy","listener size "+mListenerList.size());*/</div><div class="line">    mListenerList.register(listener);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unregisterListener</span><span class="params">(IOnNewBookArrivedListener listener)</span> <span class="keyword">throws</span> RemoteException </span>&#123;</div><div class="line">    <span class="comment">/*if(mListenerList.contains(listener))&#123;</span></div><div class="line">        mListenerList.remove(listener);</div><div class="line">        Log.i("mzy","unregister success");</div><div class="line">    &#125;else&#123;</div><div class="line">        Log.i("mzy","not find ,can ont unregister");</div><div class="line">    &#125;*/</div><div class="line">    mListenerList.unregister(listener);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>使用RemoteCallbackList的遍历方式</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">onNewBookArrived</span><span class="params">(Books book)</span> <span class="keyword">throws</span> RemoteException </span>&#123;</div><div class="line">        mBookList.add(book);</div><div class="line">        <span class="comment">/*for (int i = 0; i &lt;mListenerList.size() ; i++) &#123;</span></div><div class="line">            IOnNewBookArrivedListener listener = mListenerList.get(i);</div><div class="line">            listener.onNewBookArrived(book);</div><div class="line">        &#125;*/</div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = mListenerList.beginBroadcast();</div><div class="line">        Log.i(<span class="string">"mzy"</span>,<span class="string">"mListenerList.beginBroadcast() "</span>+N);</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;N ; i++) &#123;</div><div class="line">            IOnNewBookArrivedListener listener = mListenerList.getBroadcastItem(i);</div><div class="line">            <span class="keyword">if</span>(listener != <span class="keyword">null</span>)&#123;</div><div class="line">                listener.onNewBookArrived(book);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        mListenerList.finishBroadcast();</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p>ok这就完成了。运行程序会发现在解注册成功。</p>
-<p>说一下使用RemoteCallbackList的注意点。</p>
-<blockquote>
-<p>RemoteCallbackList不是一个list无法像使用list一样遍历它。必须按照下面的方式遍历。其中beginBroadcast和finishBroadcast必须要配套使用，哪怕只是为了获取RemoteCallbackList的元素个数，这个一定要注意</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">final</span> <span class="keyword">int</span> N = mListenerList.beginBroadcast();</div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;N ; i++) &#123;</div><div class="line">    IOnNewBookArrivedListener listener = mListenerList.getBroadcastItem(i);</div><div class="line">    <span class="keyword">if</span>(listener != <span class="keyword">null</span>)&#123;</div><div class="line">        <span class="comment">//do something</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">mListenerList.finishBroadcast();</div></pre></td></tr></table></figure>
-<p>对AIDL总结一下：</p>
-<blockquote>
-<ul>
-<li>功能强大，支持一对多的并发通信，支持实时通信。就是很屌很炫很牛逼</li>
-<li>使用有点复杂(但是可以用起来还是很顺手啊)</li>
-<li>牛逼的观察者模式</li>
-</ul>
-</blockquote>
-<p>还有一点注意点：</p>
-<blockquote>
-<p>客户端调用远程服务的方法，被调用的方法运行在服务端的Binder线程池中，同时客户端线程会被挂起，这个时候如果服务端的方法比较耗时，那么就会导致客户端线程长时间的阻塞，而这个时候客户端的线程是UI线程的话，就会ANR。例如客户端调用服务端的getBookList方法在UI线程中，如果getBookList方法是个耗时方法，那么客户端就会ANR，我们需要做的是把可能耗时的操作放在一个非UI线程。同理，如果服务端调用客户端时也需要注意避免ANR发生。</p>
-</blockquote>
-<p>还有一点要说的：</p>
-<blockquote>
-<p>Binder是可能会意外死亡的，这往往是由于服务端进程意外停止了，这时我们需要重新链接服务。有两种方法：</p>
-<ul>
-<li>给Binder设置DeathRecipient监听，当Binder死亡时，我们会收到binderDied方法的回调，在binderDied方法中我们可以重新链接服务</li>
-<li>在onServiceDisconnected中重新链接服务</li>
-</ul>
-</blockquote>
-<p>DeathRecipient示例：</p>
-<p>在客户端添加如下代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> IBinder.DeathRecipient mDeathRecipient = <span class="keyword">new</span> IBinder.DeathRecipient() &#123;</div><div class="line">     <span class="meta">@Override</span></div><div class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">binderDied</span><span class="params">()</span> </span>&#123;</div><div class="line">         <span class="keyword">if</span>(mBookManager == <span class="keyword">null</span>) <span class="keyword">return</span>;</div><div class="line"></div><div class="line">         mBookManager.asBinder().unlinkToDeath(mDeathRecipient,<span class="number">0</span>);</div><div class="line">         mBookManager = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">         <span class="comment">//如果binder死亡，那就重新启动服务</span></div><div class="line">         Intent intent = <span class="keyword">new</span> Intent(BookManagerActivity.<span class="keyword">this</span>,BookManagerService.class);</div><div class="line">         bindService(intent,mConnection,BIND_AUTO_CREATE);</div><div class="line"></div><div class="line">     &#125;</div><div class="line"> &#125;;</div></pre></td></tr></table></figure></p>
-<p><strong>再啰嗦几句。</strong></p>
-<p>有没有想过这个问题：服务端开启了服务，可以对应很多个客户端。但是服务端这样来者不拒真的好吗？</p>
-<p>显然这样做的话在数据安全上是肯定不会同意的。那么怎么限制客户端的访问呢？</p>
-<p>下面介绍一下<strong>权限验证</strong></p>
-<p>第一种验证方式：<strong>onBind中验证</strong></p>
-<p>如果验证不通过就直接返回null，这样验证失败的客户端就无法绑定服务。</p>
-<p><strong>使用permission</strong></p>
-<p>在服务端AndroidMenifest中申明权限限制：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">permission</span> <span class="attr">android:name</span>=<span class="string">"com.mzy.BOOK_SERVICE"</span></span></div><div class="line">        <span class="attr">android:protectionLevel</span>=<span class="string">"normal"</span>/&gt;</div></pre></td></tr></table></figure></p>
-<p>然后在service的onBind方法中判断是否有权限</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Nullable</span></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> IBinder <span class="title">onBind</span><span class="params">(Intent intent)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> check = checkCallingOrSelfPermission(<span class="string">"com.mzy.BOOK_SERVICE"</span>);</div><div class="line">    <span class="keyword">if</span>(check == PackageManager.PERMISSION_DENIED)&#123;</div><div class="line">        Log.i(<span class="string">"mzy"</span>,<span class="string">"PERMISSION_DENIED "</span>+check);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> mBinder;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>然后在客户端中申请权限</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"com.mzy.BOOK_SERVICE"</span>/&gt;</span></div></pre></td></tr></table></figure>
-<p>这样就可以添加限制了。</p>
-
+<p>在进程间通信的时候，Binder会把客户端传递过来的对象重新转化并生成一个新的对象。也就是说，在操作的时候虽然都是listener但是这两个listener并不是同一个对象,所以在mListenerList.contains时会返回false。因为对象是不能直接的跨进程通信的。<br>
+        
+          <a class="article-more-a" href="/2017/03/14/关于Android进程间通信Ⅲ/#more">more >></a>
+        
       
 
       
