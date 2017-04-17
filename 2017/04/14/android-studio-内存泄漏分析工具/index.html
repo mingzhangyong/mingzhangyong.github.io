@@ -8,44 +8,23 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>android studio 内存泄漏分析工具 | 明章永的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="android开发中内存泄漏的问题还是经常出现的，无论是经验不足还是疏忽大意，内存泄漏的问题难免会存在。而且即使出现了内存泄漏编译不会报错，程序依然可以正常运行。但是说不定什么时候就突然来了一个crash,就像一个定时炸弹。看一下android studio的内存分析工具。
-studio的Monitors窗口
-
-查看内存相关的信息
-
-分析内存泄漏工具点击
-
-出现以下界面(eclipse用户也有相关">
+  <meta name="description" content="android开发中内存泄漏的问题还是经常出现的，无论是经验不足还是疏忽大意，内存泄漏的问题难免会存在。而且即使出现了内存泄漏编译不会报错，程序依然可以正常运行。但是说不定什么时候就突然来了一个crash,就像一个定时炸弹。看一下android studio的内存分析工具。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="android studio 内存泄漏分析工具">
 <meta property="og:url" content="http://yoursite.com/2017/04/14/android-studio-内存泄漏分析工具/index.html">
 <meta property="og:site_name" content="明章永的博客">
-<meta property="og:description" content="android开发中内存泄漏的问题还是经常出现的，无论是经验不足还是疏忽大意，内存泄漏的问题难免会存在。而且即使出现了内存泄漏编译不会报错，程序依然可以正常运行。但是说不定什么时候就突然来了一个crash,就像一个定时炸弹。看一下android studio的内存分析工具。
-studio的Monitors窗口
-
-查看内存相关的信息
-
-分析内存泄漏工具点击
-
-出现以下界面(eclipse用户也有相关">
+<meta property="og:description" content="android开发中内存泄漏的问题还是经常出现的，无论是经验不足还是疏忽大意，内存泄漏的问题难免会存在。而且即使出现了内存泄漏编译不会报错，程序依然可以正常运行。但是说不定什么时候就突然来了一个crash,就像一个定时炸弹。看一下android studio的内存分析工具。">
 <meta property="og:image" content="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/2017-04-14%2018-05-01%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/2017-04-14%2018-05-45%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/2017-04-14%2011-30-16%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/2017-04-17%2011-30-16%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/2017-04-14%2018-06-41%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/2017-04-14%2018-07-06%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/2017-04-14%2018-08-01%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/2017-04-14%2018-08-30%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
-<meta property="og:updated_time" content="2017-04-17T03:45:45.000Z">
+<meta property="og:updated_time" content="2017-04-17T03:50:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="android studio 内存泄漏分析工具">
-<meta name="twitter:description" content="android开发中内存泄漏的问题还是经常出现的，无论是经验不足还是疏忽大意，内存泄漏的问题难免会存在。而且即使出现了内存泄漏编译不会报错，程序依然可以正常运行。但是说不定什么时候就突然来了一个crash,就像一个定时炸弹。看一下android studio的内存分析工具。
-studio的Monitors窗口
-
-查看内存相关的信息
-
-分析内存泄漏工具点击
-
-出现以下界面(eclipse用户也有相关">
+<meta name="twitter:description" content="android开发中内存泄漏的问题还是经常出现的，无论是经验不足还是疏忽大意，内存泄漏的问题难免会存在。而且即使出现了内存泄漏编译不会报错，程序依然可以正常运行。但是说不定什么时候就突然来了一个crash,就像一个定时炸弹。看一下android studio的内存分析工具。">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/2017-04-14%2018-05-01%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
   
     <link rel="alternative" href="/atom.xml" title="明章永的博客" type="application/atom+xml">
@@ -207,12 +186,13 @@ studio的Monitors窗口
     <div class="article-entry" itemprop="articleBody">
       
         <p>android开发中内存泄漏的问题还是经常出现的，无论是经验不足还是疏忽大意，内存泄漏的问题难免会存在。而且即使出现了内存泄漏编译不会报错，程序依然可以正常运行。但是说不定什么时候就突然来了一个crash,就像一个定时炸弹。看一下android studio的内存分析工具。</p>
+<a id="more"></a>
 <p>studio的Monitors窗口</p>
 <p><img src="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/2017-04-14%2018-05-01%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" alt=""></p>
 <p>查看内存相关的信息</p>
 <p><img src="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/2017-04-14%2018-05-45%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" alt=""></p>
 <p>分析内存泄漏工具点击</p>
-<p><img src="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/2017-04-14%2011-30-16%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/2017-04-17%2011-30-16%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" alt=""></p>
 <p>出现以下界面(eclipse用户也有相关工具，在android艺术探索书中介绍的即为eclipse的使用方法)</p>
 <p><img src="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/2017-04-14%2018-06-41%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" alt=""></p>
 <p>换一种查看方式</p>
