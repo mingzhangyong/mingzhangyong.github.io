@@ -155,6 +155,58 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-关于Android内存泄露解决办法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>发现一个好用的项目来分析内存泄露</p>
+<p><a href="https://github.com/square/leakcanary" target="_blank" rel="external">https://github.com/square/leakcanary</a></p>
+<p>接入该项目后就可以在写完页面以后打开app看看有没有内存泄露就好了</p>
+<p>总结一下内存泄露的解决方法</p>
+<h2 id="static关键字引起"><a href="#static关键字引起" class="headerlink" title="static关键字引起"></a>static关键字引起</h2><ul>
+<li>在当前页面finish的时候为static关键字修饰的变量设置为null</li>
+<li>关于单例模式引用当前activity引起泄露也是由于static。那么在使用单例模式的时候需要传入context的时候如果可以，使用Application Context代替activity</li>
+</ul>
+<h2 id="Handler引起的内存泄漏"><a href="#Handler引起的内存泄漏" class="headerlink" title="Handler引起的内存泄漏"></a>Handler引起的内存泄漏</h2><p>Handler使用时的内存泄露，handler使用时可以延时发送消息，如果在handler完成之前activity finish，那么handler持有当前activity的引用。当前activity不能被回收，引起内存泄露。</p>
+<p>再一个，使用弱引用来实现handler</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">private static class WeakHandlerActivity extends Handler &#123;</div><div class="line">        private WeakReference&lt;Activity&gt; mWeakActivity;</div><div class="line">        private WeakHandlerMessage mHandlerMessage;</div><div class="line"></div><div class="line">        public WeakHandlerActivity(Activity activity)&#123;this.mWeakActivity = new WeakReference&lt;Activity&gt;(activity);&#125;</div><div class="line"></div><div class="line">        public WeakHandlerActivity(Activity activity, WeakHandlerMessage weakHandlerMessage) &#123;</div><div class="line">            this.mWeakActivity = new WeakReference&lt;Activity&gt;(activity);</div><div class="line">            this.mHandlerMessage = weakHandlerMessage;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public void handleMessage(Message msg) &#123;</div><div class="line">            Activity activity = mWeakActivity.get();</div><div class="line">            if(null == activity) &#123;</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line">            Object obj = msg.obj;</div><div class="line">            if (obj instanceof RestBase) &#123;</div><div class="line">                mHandlerMessage.restError(msg);</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line">            mHandlerMessage.dealMessage(msg);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>使用弱引用</li>
+<li>在activity finish的时候取消掉handler的消息</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">handler.removeCallbacksAndMessages(null);</div></pre></td></tr></table></figure>
+<p>以后继续补充</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/05/23/关于Android内存泄露解决办法/">我还要 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-android-studio-内存泄漏分析工具" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
