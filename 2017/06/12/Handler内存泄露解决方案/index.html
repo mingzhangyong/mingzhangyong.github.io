@@ -6,14 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>明章永的博客</title>
+  <title>Handler内存泄露解决方案 | 明章永的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="明章永的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="创建静态内部类的Handler
+弱引用activity
+清除消息
+
+弱引用activity基类BaseStaticWeakHandler.java 123456789101112131415161718192021222324252627282930313233343536373839404142 package com.yunque361.core;import android.app.Act">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Handler内存泄露解决方案">
+<meta property="og:url" content="http://yoursite.com/2017/06/12/Handler内存泄露解决方案/index.html">
 <meta property="og:site_name" content="明章永的博客">
+<meta property="og:description" content="创建静态内部类的Handler
+弱引用activity
+清除消息
+
+弱引用activity基类BaseStaticWeakHandler.java 123456789101112131415161718192021222324252627282930313233343536373839404142 package com.yunque361.core;import android.app.Act">
+<meta property="og:updated_time" content="2017-06-12T06:26:47.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="明章永的博客">
+<meta name="twitter:title" content="Handler内存泄露解决方案">
+<meta name="twitter:description" content="创建静态内部类的Handler
+弱引用activity
+清除消息
+
+弱引用activity基类BaseStaticWeakHandler.java 123456789101112131415161718192021222324252627282930313233343536373839404142 package com.yunque361.core;import android.app.Act">
   
     <link rel="alternative" href="/atom.xml" title="明章永的博客" type="application/atom+xml">
   
@@ -153,16 +169,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-Handler内存泄露解决方案" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-Handler内存泄露解决方案" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/12/Handler内存泄露解决方案/">Handler内存泄露解决方案</a>
+    <h1 class="article-title" itemprop="name">
+      Handler内存泄露解决方案
     </h1>
   
 
@@ -194,10 +208,6 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/06/12/Handler内存泄露解决方案/">我还要 >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
@@ -205,7 +215,16 @@
   </div>
 </article>
 
-
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2017/06/07/rxJava-rxAndroid-初探/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">rxJava rxAndroid 初探</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
 
@@ -213,531 +232,26 @@
 
 
   
-    <article id="post-rxJava-rxAndroid-初探" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/07/rxJava-rxAndroid-初探/">rxJava rxAndroid 初探</a>
-    </h1>
+    <div class="duoshuo"></div>
   
 
-        
-        <a href="/2017/06/07/rxJava-rxAndroid-初探/" class="archive-article-date">
-  	<time datetime="2017-06-07T01:48:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>具体介绍请看<a href="http://gank.io/post/560e15be2dca930e00da1083" target="_blank" rel="external">这篇博客</a>，本文主要记录个人学习rxjava的过程心得</p>
-<h2 id="对rxJava理解"><a href="#对rxJava理解" class="headerlink" title="对rxJava理解"></a>对rxJava理解</h2><h3 id="优秀的观察者模式框架"><a href="#优秀的观察者模式框架" class="headerlink" title="优秀的观察者模式框架"></a>优秀的观察者模式框架</h3><p>将事件分为两个角色  <span style="color:red">被观察者（Observable）</span>  和  <span style="color:red;">观察者（Observer）</span></p>
-<p>被观察者处理事情（多线程，异步，同步都行），处理结束以后发射数据，观察者通过注册可接收数据。</p>
-<p>整体来说就是做了这么一件事。</p>
-<h2 id="为什么选择rxJava"><a href="#为什么选择rxJava" class="headerlink" title="为什么选择rxJava"></a>为什么选择rxJava</h2><h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><ul>
-<li>简化逻辑，易于理解</li>
-<li>优秀的多线程方案（线程池）</li>
-<li>eventBus替代品</li>
-</ul>
-<h2 id="关于简化逻辑"><a href="#关于简化逻辑" class="headerlink" title="关于简化逻辑"></a>关于简化逻辑</h2><p>rxJava提供了丰富的操作符，这些操作符可以简化逻辑，让代码读起来一目了然</p>
-<p>举个栗子：</p>
-<ul>
-<li>将文件夹下的所有.png文件加载出来<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Thread() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.run();</div><div class="line">        <span class="keyword">for</span> (File folder : folders) &#123;</div><div class="line">            File[] files = folder.listFiles();</div><div class="line">            <span class="keyword">for</span> (File file : files) &#123;</div><div class="line">                <span class="keyword">if</span> (file.getName().endsWith(<span class="string">".png"</span>)) &#123;</div><div class="line">                    <span class="keyword">final</span> Bitmap bitmap = getBitmapFromFile(file);</div><div class="line">                    getActivity().runOnUiThread(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">                        <span class="meta">@Override</span></div><div class="line">                        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                            imageCollectorView.addImage(bitmap);</div><div class="line">                        &#125;</div><div class="line">                    &#125;);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;.start();</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p></p><p style="color:red;font-size:3em">VS</p><p></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">Observable.from(folders)</div><div class="line">    .flatMap(<span class="keyword">new</span> Func1&lt;File, Observable&lt;File&gt;&gt;() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> Observable&lt;File&gt; <span class="title">call</span><span class="params">(File file)</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> Observable.from(file.listFiles());</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">    .filter(<span class="keyword">new</span> Func1&lt;File, Boolean&gt;() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> Boolean <span class="title">call</span><span class="params">(File file)</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> file.getName().endsWith(<span class="string">".png"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">    .map(<span class="keyword">new</span> Func1&lt;File, Bitmap&gt;() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> Bitmap <span class="title">call</span><span class="params">(File file)</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> getBitmapFromFile(file);</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">    .subscribeOn(Schedulers.io())</div><div class="line">    .observeOn(AndroidSchedulers.mainThread())</div><div class="line">    .subscribe(<span class="keyword">new</span> Action1&lt;Bitmap&gt;() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">(Bitmap bitmap)</span> </span>&#123;</div><div class="line">            imageCollectorView.addImage(bitmap);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div></pre></td></tr></table></figure>
-<p>第一段的传统代码，读起来还要思考。</p>
-<p>而第二段代码，只要看看操作符就好了</p>
-<p>from(将文件夹数组拆开成每一个文件夹) –&gt; flatMap(将文件夹下的文件拆开) –&gt; filter(过滤文件) –&gt; map(处理文件)</p>
-<p>逻辑清晰</p>
-<h2 id="关于操作符"><a href="#关于操作符" class="headerlink" title="关于操作符"></a>关于操作符</h2><p>刚开始上手，操作符的理解很重要。要会用，记录如下</p>
-<p><a href="https://github.com/jiang111/RxJavaApp" target="_blank" rel="external">这个app上很全，可以在手机上学习</a></p>
-<h3 id="创建操作"><a href="#创建操作" class="headerlink" title="创建操作"></a>创建操作</h3><p>just:将要处理的数据转换为 Observable，不做其他任何操作；</p>
-<p>from:将要处理的数据拆分开，分别转换为 Observable 。如上例中 Observable.from(file.listFiles());(fromArray:拆分数组  fromFuture:异步  fromPublisher  fromCallable  fromIterable:同步)</p>
-<p>repeat:重复发射相同的数据</p>
-<p>create:自己创建一个 Observable</p>
-<p>defer:只有当观察者注册了该Observable才会创建一个Observable，并且为每一个观察者创建一个新的Observable</p>
-<p>range:发射指定范围的整数序列</p>
-<p>interval:根据给定时间间隔发射数据；</p>
-<p>timer:根据给定时间间隔发射数据；</p>
-<p>empty:通知完成；</p>
-<p>erro:发射错误；</p>
-<p>never:不发射数据；</p>
-<h3 id="变换操作"><a href="#变换操作" class="headerlink" title="变换操作"></a>变换操作</h3><p>看看app吧，太多了</p>
-<h2 id="关于多线程方案"><a href="#关于多线程方案" class="headerlink" title="关于多线程方案"></a>关于多线程方案</h2>
-      
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/06/07/rxJava-rxAndroid-初探/">我还要 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-关于Android内存泄露解决办法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>发现一个好用的项目来分析内存泄露</p>
-<p><a href="https://github.com/square/leakcanary" target="_blank" rel="external">https://github.com/square/leakcanary</a></p>
-<p>接入该项目后就可以在写完页面以后打开app看看有没有内存泄露就好了</p>
-<p>总结一下内存泄露的解决方法</p>
-<h2 id="static关键字引起"><a href="#static关键字引起" class="headerlink" title="static关键字引起"></a>static关键字引起</h2><ul>
-<li>在当前页面finish的时候为static关键字修饰的变量设置为null</li>
-<li>关于单例模式引用当前activity引起泄露也是由于static。那么在使用单例模式的时候需要传入context的时候如果可以，使用Application Context代替activity</li>
-</ul>
-<h2 id="Handler引起的内存泄漏"><a href="#Handler引起的内存泄漏" class="headerlink" title="Handler引起的内存泄漏"></a>Handler引起的内存泄漏</h2><p>Handler使用时的内存泄露，handler使用时可以延时发送消息，如果在handler完成之前activity finish，那么handler持有当前activity的引用。当前activity不能被回收，引起内存泄露。</p>
-<p>再一个，如果在handler中需要调用activity的，使用弱引用的方式调用。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">private static class WeakHandlerActivity extends Handler &#123;</div><div class="line">        private WeakReference&lt;Activity&gt; mWeakActivity;</div><div class="line">        private WeakHandlerMessage mHandlerMessage;</div><div class="line"></div><div class="line">        public WeakHandlerActivity(Activity activity)&#123;this.mWeakActivity = new WeakReference&lt;Activity&gt;(activity);&#125;</div><div class="line"></div><div class="line">        public WeakHandlerActivity(Activity activity, WeakHandlerMessage weakHandlerMessage) &#123;</div><div class="line">            this.mWeakActivity = new WeakReference&lt;Activity&gt;(activity);</div><div class="line">            this.mHandlerMessage = weakHandlerMessage;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public void handleMessage(Message msg) &#123;</div><div class="line">            Activity activity = mWeakActivity.get();</div><div class="line">            if(null == activity) &#123;</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line">            Object obj = msg.obj;</div><div class="line">            if (obj instanceof RestBase) &#123;</div><div class="line">                mHandlerMessage.restError(msg);</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line">            mHandlerMessage.dealMessage(msg);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>使用弱引用</li>
-<li>在activity finish的时候取消掉handler的消息</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">handler.removeCallbacksAndMessages(null);</div></pre></td></tr></table></figure>
-<p>以后继续补充</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/23/关于Android内存泄露解决办法/">我还要 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-android-studio-内存泄漏分析工具" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/14/android-studio-内存泄漏分析工具/">android studio 内存泄漏分析工具</a>
-    </h1>
-  
-
-        
-        <a href="/2017/04/14/android-studio-内存泄漏分析工具/" class="archive-article-date">
-  	<time datetime="2017-04-14T09:43:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>android开发中内存泄漏的问题还是经常出现的，无论是经验不足还是疏忽大意，内存泄漏的问题难免会存在。而且即使出现了内存泄漏编译不会报错，程序依然可以正常运行。但是说不定什么时候就突然来了一个crash,就像一个定时炸弹。看一下android studio的内存分析工具。</p>
-        
-          <a class="article-more-a" href="/2017/04/14/android-studio-内存泄漏分析工具/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/14/android-studio-内存泄漏分析工具/">我还要 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-关于Android进程间通信Ⅲ" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/14/关于Android进程间通信Ⅲ/">关于Android进程间通信Ⅲ</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/14/关于Android进程间通信Ⅲ/" class="archive-article-date">
-  	<time datetime="2017-03-14T03:40:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>上一篇说到aidl实现进程间通信，在最后却出现了解注册失败的情况，那么，这篇文章就把aidl实现进程间通信需要注意的事情介绍一下。</p>
-<p><strong>接注册失败原因</strong></p>
-<blockquote>
-<p>在进程间通信的时候，Binder会把客户端传递过来的对象重新转化并生成一个新的对象。也就是说，在操作的时候虽然都是listener但是这两个listener并不是同一个对象,所以在mListenerList.contains时会返回false。因为对象是不能直接的跨进程通信的。<br>
-        
-          <a class="article-more-a" href="/2017/03/14/关于Android进程间通信Ⅲ/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/14/关于Android进程间通信Ⅲ/">我还要 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-关于Android进程间通信II" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/13/关于Android进程间通信II/">关于Android进程间通信II</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/13/关于Android进程间通信II/" class="archive-article-date">
-  	<time datetime="2017-03-13T03:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在上一篇<a href="https://mingzhangyong.github.io/2017/03/12/%E5%85%B3%E4%BA%8Eandroid%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/">关于Android进程间通信</a>中介绍了Android的三种进程间通信的方式。这里再介绍一种牛逼的IPC方式</p>
-<p><strong>AIDL</strong></p>
-<p>上次去面试一家心仪的公司，面试官有问道关于Android多进程通信相关的方法，我吧能想到的全都说了，但是没有说道一个让面试官满意的方式。是的，面试官要的答案就是AIDL实现进程间的通信。</p>
-<p>上一篇文章中介绍的三种方式都有自己的局限性和缺点(这个在后面还会总结一下)</p>
-<p>那么AIDL呢？近乎完美。<br>
-        
-          <a class="article-more-a" href="/2017/03/13/关于Android进程间通信II/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/13/关于Android进程间通信II/">我还要 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-马平狮子茶叶面向全世界！" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/13/马平狮子茶叶面向全世界！/">马平狮子茶叶面向全世界！</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/13/马平狮子茶叶面向全世界！/" class="archive-article-date">
-  	<time datetime="2017-03-13T01:38:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="诚-交-茶-友"><a href="#诚-交-茶-友" class="headerlink" title="诚  交  茶  友"></a>诚  交  茶  友</h2><p>插播广告一则，我姐家的茶叶，<strong>狮子茶叶</strong></p>
-<p>2006年开始我爸把马坪双河的一片山和一些地开发出来中了茶叶，在马坪狮子茶叶还是很有名气的，原因是茶叶地位于农村山丘之上，没有受到大城市的工业污染，加上茶农（我爸）的精心照料，茶叶味道清香纯正。<br>
-        
-          <a class="article-more-a" href="/2017/03/13/马平狮子茶叶面向全世界！/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/13/马平狮子茶叶面向全世界！/">我还要 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-关于android进程间通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/12/关于android进程间通信/">关于android进程间通信</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/12/关于android进程间通信/" class="archive-article-date">
-  	<time datetime="2017-03-12T02:41:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>android开发中难免会遇到要求开发多进程的应用程序。在使用中总是缺少总结，以至于在遇到问题时只能依赖于google之类的。最近看了任玉刚老师的《Android开发艺术探索》这本书，第二章就讲到了多进程的通信方式，比较全面。那么我也对学过的东西总结一下吧。<br>
-        
-          <a class="article-more-a" href="/2017/03/12/关于android进程间通信/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/12/关于android进程间通信/">我还要 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-微信小程序radio不能改变大小，自己重写一个吧" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/25/微信小程序radio不能改变大小，自己重写一个吧/">微信小程序radio不能改变大小，自己重写一个吧</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/25/微信小程序radio不能改变大小，自己重写一个吧/" class="archive-article-date">
-  	<time datetime="2017-02-25T06:02:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>小程序自带的radio似乎是不能调整大小的，在项目中使用时很不方便，时常会影响整个界面的效果。为了解决这个问题，我使用text标签结合icon标签实现了radio效果。</p>
-<p>这里我们实现一个选择地区的单选框</p>
-<p><strong><em>1.使用radio的效果</em></strong><br><img src="https://raw.githubusercontent.com/mingzhangyong/mzyPic/master/radio_select_area.jpg" alt="这里写图片描述"><br>
-        
-          <a class="article-more-a" href="/2017/02/25/微信小程序radio不能改变大小，自己重写一个吧/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/25/微信小程序radio不能改变大小，自己重写一个吧/">我还要 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-android-release版本去掉log" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/25/android-release版本去掉log/">android release版本去掉log</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/25/android-release版本去掉log/" class="archive-article-date">
-  	<time datetime="2017-02-25T05:58:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>android开发中总会在代码中添加log，打印当前运行情况。log打印是调试时不可或缺的工具。</p>
-<p>但是不可否认的是当log打印语句中出现空指针的时候程序会crash。又或是在循环里面打印了log信息，会消耗很多系统资源。</p>
-<p><strong>目标：</strong>我们希望在打包debug包的时候保留log信息，在release包时去掉log消息。<br>
-        
-          <a class="article-more-a" href="/2017/02/25/android-release版本去掉log/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/25/android-release版本去掉log/">我还要 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
-  
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'ming-zhang-yong-de-bo-ke'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
 
 
           </div>
@@ -759,8 +273,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
