@@ -10,26 +10,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="创建静态内部类的Handler
 弱引用activity
-清除消息
-
-弱引用activity基类BaseStaticWeakHandler.java 123456789101112131415161718192021222324252627282930313233343536373839404142 package com.yunque361.core;import android.app.Act">
+清除消息">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Handler内存泄露解决方案">
 <meta property="og:url" content="http://yoursite.com/2017/06/12/Handler内存泄露解决方案/index.html">
 <meta property="og:site_name" content="明章永的博客">
 <meta property="og:description" content="创建静态内部类的Handler
 弱引用activity
-清除消息
-
-弱引用activity基类BaseStaticWeakHandler.java 123456789101112131415161718192021222324252627282930313233343536373839404142 package com.yunque361.core;import android.app.Act">
-<meta property="og:updated_time" content="2017-06-12T06:26:47.000Z">
+清除消息">
+<meta property="og:updated_time" content="2017-06-12T06:31:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Handler内存泄露解决方案">
 <meta name="twitter:description" content="创建静态内部类的Handler
 弱引用activity
-清除消息
-
-弱引用activity基类BaseStaticWeakHandler.java 123456789101112131415161718192021222324252627282930313233343536373839404142 package com.yunque361.core;import android.app.Act">
+清除消息">
   
     <link rel="alternative" href="/atom.xml" title="明章永的博客" type="application/atom+xml">
   
@@ -194,6 +188,7 @@
 <li><h2 id="弱引用activity"><a href="#弱引用activity" class="headerlink" title="弱引用activity"></a>弱引用activity</h2></li>
 <li><h2 id="清除消息"><a href="#清除消息" class="headerlink" title="清除消息"></a>清除消息</h2></li>
 </ul>
+<a id="more"></a>
 <h3 id="弱引用activity-1"><a href="#弱引用activity-1" class="headerlink" title="弱引用activity"></a>弱引用activity</h3><p>基类BaseStaticWeakHandler.java<br> <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">package</span> com.yunque361.core;</div><div class="line"></div><div class="line"><span class="keyword">import</span> android.app.Activity;</div><div class="line"><span class="keyword">import</span> android.os.Handler;</div><div class="line"><span class="keyword">import</span> android.os.Message;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.yunque361.core.bean.RestBase;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.lang.ref.WeakReference;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by mingzhangyong on 17-6-12.</div><div class="line"> *</div><div class="line"> *说明：此类用于创建弱引用的handler基类，创建静态内部类继承BaseStaticWeakHandler重写dealMessage（无异常）和restError（异常）</div><div class="line"> *</div><div class="line"> *子类中将dealMessage的activity参数强转为子类activity，再调用子类所在activity的方法</div><div class="line"> */</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseStaticWeakHandler</span> <span class="keyword">extends</span> <span class="title">Handler</span></span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> WeakReference&lt;Activity&gt; mActivity;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BaseStaticWeakHandler</span><span class="params">(Activity activity)</span> </span>&#123;</div><div class="line">        mActivity = <span class="keyword">new</span> WeakReference&lt;&gt;(activity);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;</div><div class="line">        Activity activity = mActivity.get();</div><div class="line">        <span class="keyword">if</span>(<span class="keyword">null</span> == activity) &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        Object obj = msg.obj;</div><div class="line">        <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> RestBase) &#123;</div><div class="line">            restError(activity,msg);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        dealMessage(activity,msg);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">dealMessage</span><span class="params">(Activity activity,Message msg)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">restError</span><span class="params">(Activity activity,Message msg)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h3 id="创建静态内部类的Handler-1"><a href="#创建静态内部类的Handler-1" class="headerlink" title="创建静态内部类的Handler"></a>创建静态内部类的Handler</h3><p>使用示例：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">HandlerCancelCollect</span> <span class="keyword">extends</span> <span class="title">BaseStaticWeakHandler</span></span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HandlerCancelCollect</span><span class="params">(Activity activity)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(activity);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">dealMessage</span><span class="params">(Activity activity, Message msg)</span> </span>&#123;</div><div class="line">        ((WebSkuActivity)activity).dealCancelCollectMessage(msg);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">restError</span><span class="params">(Activity activity, Message msg)</span> </span>&#123;</div><div class="line">        ((WebSkuActivity)activity).dealCancelCollectMessageFail(msg);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dealCancelCollectMessage</span><span class="params">(Message msg)</span></span>&#123;</div><div class="line">    <span class="comment">// TODO</span></div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dealCancelCollectMessageFail</span><span class="params">(Message msg)</span></span>&#123;</div><div class="line">    <span class="comment">// TODO</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">private</span> Handler handlerCancelCollect = <span class="keyword">new</span> HandlerCancelCollect(<span class="keyword">this</span>);</div></pre></td></tr></table></figure>
@@ -217,6 +212,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2017/06/12/关于Android内存泄露解决办法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
   
   
     <a href="/2017/06/07/rxJava-rxAndroid-初探/" id="article-nav-older" class="article-nav-link-wrap">
